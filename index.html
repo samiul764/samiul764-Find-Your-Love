@@ -17,12 +17,13 @@
 
 body{
     min-height:100vh;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
     padding:20px;
-    overflow-x:hidden;
+    overflow:hidden; /* important fix */
 }
 
 /* floating particles */
