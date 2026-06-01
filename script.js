@@ -13,29 +13,34 @@ function isValidName(name){
 
     return !spam.some(w => name.toLowerCase().includes(w));
 }
-const name1 = document.getElementById("name1").value.trim();
-const name2 = document.getElementById("name2").value.trim();
-const loveText = document.getElementById("loveText").value.trim();
 
-const error = document.getElementById("errorMsg");
-error.textContent = "";
 
-// 🔴 HARD REQUIRED CHECK (ALL FIELDS)
-if(!name1 || !name2 || !loveText){
-    error.textContent = "All fields are required ❤️";
-    return;
-}
+function calculateLove(){
 
-// 🔴 NAME VALIDATION
-if(!isValidName(name1)){
-    error.textContent = "Please enter a valid first name.";
-    return;
-}
+    const name1 = document.getElementById("name1").value.trim();
+    const name2 = document.getElementById("name2").value.trim();
+    const loveText = document.getElementById("loveText").value.trim();
 
-if(!isValidName(name2)){
-    error.textContent = "Please enter a valid second name.";
-    return;
-}
+    const error = document.getElementById("errorMsg");
+    error.textContent = "";
+
+    // 🔴 REQUIRED FIELDS CHECK
+    if(!name1 || !name2 || !loveText){
+        error.textContent = "All fields are required ❤️";
+        return;
+    }
+
+    // 🔴 VALIDATION
+    if(!isValidName(name1)){
+        error.textContent = "Please enter a valid first name.";
+        return;
+    }
+
+    if(!isValidName(name2)){
+        error.textContent = "Please enter a valid second name.";
+        return;
+    }
+
     document.getElementById("overlay").style.display = "flex";
 
     setTimeout(()=>{
@@ -66,6 +71,7 @@ if(!isValidName(name2)){
 
         document.getElementById("message").innerText = msg;
 
+        // Google form
         document.getElementById("g1").value = name1;
         document.getElementById("g2").value = name2;
         document.getElementById("g3").value = loveText;
