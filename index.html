@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Match Calculator❤️ - Built by Prottoy</title>
+<title>Love Match Calculator ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -20,7 +20,7 @@
     <input type="text" id="name2" placeholder="Their Name">
     <input type="text" id="loveText" placeholder="What do you love about them?">
 
-    <div id="errorMsg" class="error"></div>
+    <div class="error" id="errorMsg"></div>
 
     <button onclick="calculateLove()">Calculate ❤️</button>
 
@@ -36,32 +36,58 @@
 
 </div>
 
-<!-- loading overlay -->
+<!-- overlay -->
 <div class="overlay" id="overlay">
     <div class="loaderCard">
         <div class="spinner"></div>
-        <div class="loaderText">Calculating compatibility...</div>
+        <p>Calculating compatibility...</p>
     </div>
 </div>
 
-<!-- Google Form -->
-<form id="googleForm"
-action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
-method="POST"
-target="hidden_iframe">
-
-<input type="hidden" name="entry.1203440948" id="g1">
-<input type="hidden" name="entry.632297335" id="g2">
-<input type="hidden" name="entry.2029294024" id="g3">
-</form>
-
-<iframe name="hidden_iframe"></iframe>
-
 <!-- footer -->
 <div class="footer">
-    </> developed by prottoy • class 10 vibe coder • built for fun ❤️
+    </> dev by Prottoy • class 10 coder • love project 💖
 </div>
 
-<script src="script.js"></script>
+<script>
+function calculateLove(){
+
+    let n1 = document.getElementById("name1").value.trim();
+    let n2 = document.getElementById("name2").value.trim();
+    let love = document.getElementById("loveText").value.trim();
+
+    let error = document.getElementById("errorMsg");
+
+    if(!n1 || !n2 || !love){
+        error.innerText = "❌ Please fill all fields!";
+        return;
+    }
+
+    error.innerText = "";
+
+    document.getElementById("overlay").style.display = "flex";
+
+    setTimeout(() => {
+
+        let percent = Math.floor(Math.random()*41 + 60);
+
+        document.getElementById("overlay").style.display = "none";
+
+        document.getElementById("result").style.display = "block";
+        document.getElementById("percent").innerText = percent + "%";
+        document.getElementById("fill").style.width = percent + "%";
+
+        let msg = "";
+
+        if(percent > 85) msg = "💖 Perfect match!";
+        else if(percent > 70) msg = "💘 Strong connection!";
+        else msg = "💗 Good vibes!";
+
+        document.getElementById("message").innerText = msg;
+
+    }, 1500);
+}
+</script>
+
 </body>
 </html>
