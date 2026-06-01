@@ -24,12 +24,12 @@ function calculateLove(){
     error.textContent = "";
 
     // REQUIRED CHECK
-    if(name1 === "" || name2 === "" || loveText === ""){
+    if(!name1 || !name2 || !loveText){
         error.textContent = "All fields are required ❤️";
         return;
     }
 
-    // VALIDATION
+    // NAME VALIDATION
     if(!isValidName(name1)){
         error.textContent = "Invalid first name";
         return;
@@ -63,10 +63,10 @@ function calculateLove(){
         }, 100);
 
         let msg =
-            percent >= 95 ? "Deep emotional love 💍"
-          : percent >= 85 ? "Strong connection ❤️"
-          : percent >= 75 ? "Growing feelings 💕"
-          : "There is potential 🥰";
+            percent >= 95 ? "💍 Deep emotional love"
+          : percent >= 85 ? "❤️ Strong connection"
+          : percent >= 75 ? "💕 Growing feelings"
+          : "🥰 There is potential";
 
         document.getElementById("message").innerText = msg;
 
