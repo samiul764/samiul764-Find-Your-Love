@@ -280,7 +280,36 @@ target="hidden_iframe">
 </div>
 
 <script>
+function isValidName(name){
 
+    name = name.trim();
+
+    if(name.length < 2)
+        return false;
+
+    if(!/^[A-Za-z\s]+$/.test(name))
+        return false;
+
+    const spam = [
+        "asdf",
+        "qwerty",
+        "zxcv",
+        "poiuy",
+        "akdhwoi",
+        "ahdoish",
+        "abcdef",
+        "testtest"
+    ];
+
+    const lower = name.toLowerCase();
+
+    for(const word of spam){
+        if(lower.includes(word))
+            return false;
+    }
+
+    return true;
+}
 function calculateLove(){
 
     const overlay=document.getElementById("overlay");
