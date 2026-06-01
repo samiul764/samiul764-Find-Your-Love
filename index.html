@@ -30,22 +30,6 @@ body{
     padding:20px;
 }
 
-/* particles */
-.particle{
-    position:fixed;
-    width:6px;
-    height:6px;
-    background:white;
-    border-radius:50%;
-    opacity:0.3;
-    animation:floatUp 8s linear infinite;
-}
-
-@keyframes floatUp{
-    0%{transform:translateY(100vh);}
-    100%{transform:translateY(-10vh);}
-}
-
 /* container */
 .container{
     width:100%;
@@ -160,69 +144,68 @@ button:hover{
     transform:translateY(0);
 }
 
-/* TIKTOK OVERLAY */
+/* 🔥 LOADING OVERLAY (GLASS STYLE) */
 .overlay{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    background:black;
     display:none;
     justify-content:center;
     align-items:center;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(18px);
     z-index:9999;
 }
 
-.loaderText{
+.loaderCard{
+    padding:20px 26px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.2);
+    backdrop-filter:blur(20px);
+    text-align:center;
     color:white;
-    font-size:18px;
-    animation:pulseText 1s infinite;
 }
 
-@keyframes pulseText{
-    50%{transform:scale(1.1); opacity:0.6;}
+.spinner{
+    width:28px;
+    height:28px;
+    border:3px solid rgba(255,255,255,0.3);
+    border-top:3px solid white;
+    border-radius:50%;
+    margin:0 auto 10px;
+    animation:spin 1s linear infinite;
 }
 
-/* glitch effect */
-.glitch{
-    animation:glitch 0.3s 3;
+@keyframes spin{
+    100%{transform:rotate(360deg);}
 }
 
-@keyframes glitch{
-    0%{transform:translate(0);}
-    25%{transform:translate(-2px,2px);}
-    50%{transform:translate(2px,-2px);}
-    75%{transform:translate(-1px,1px);}
-    100%{transform:translate(0);}
+.loaderText{
+    font-size:14px;
 }
 
 /* footer */
 .footer{
     position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    padding:7px 0;
-    text-align:center;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:10px;
+
+    padding:6px 14px;
     font-size:11px;
-    color:rgba(255,255,255,0.8);
-    background:rgba(0,0,0,0.25);
+    color:rgba(255,255,255,0.75);
+
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:14px;
+
     backdrop-filter:blur(14px);
-    border-top:1px solid rgba(255,255,255,0.15);
+
     z-index:999;
-    overflow:hidden;
-}
-
-.footer-text{
-    display:inline-block;
-    white-space:nowrap;
-    animation:slideText 12s linear infinite;
-}
-
-@keyframes slideText{
-    0%{transform:translateX(100%);}
-    100%{transform:translateX(-100%);}
+    text-align:center;
 }
 
 /* mobile */
@@ -261,9 +244,12 @@ iframe{display:none;}
 
 </div>
 
-<!-- overlay -->
+<!-- LOADING OVERLAY -->
 <div class="overlay" id="overlay">
-    <div class="loaderText">Calculating Love...</div>
+    <div class="loaderCard">
+        <div class="spinner"></div>
+        <div class="loaderText">Calculating compatibility...</div>
+    </div>
 </div>
 
 <!-- Google Form -->
@@ -281,21 +267,10 @@ target="hidden_iframe">
 
 <!-- footer -->
 <div class="footer">
-    <div class="footer-text">
-        dev </> prottoy • class 10 vibe coder • built for fun ❤️
-    </div>
+    dev </> prottoy • class 10 vibe coder • built for fun ❤️
 </div>
 
 <script>
-
-/* particles */
-for(let i=0;i<15;i++){
-    let p=document.createElement("div");
-    p.className="particle";
-    p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=(5+Math.random()*5)+"s";
-    document.body.appendChild(p);
-}
 
 function calculateLove(){
 
@@ -326,30 +301,29 @@ function calculateLove(){
 
         document.getElementById("result").style.display="block";
         document.getElementById("percent").innerText=percent+"%";
-        document.getElementById("percent").classList.add("glitch");
 
         setTimeout(()=>{
             document.getElementById("fill").style.width=percent+"%";
-        },200);
+        },150);
 
         let msg="";
-        if(percent>=95) msg="💍 SOULMATES!";
-        else if(percent>=85) msg="💕 PERFECT MATCH!";
-        else if(percent>=75) msg="❤️ STRONG BOND!";
-        else msg="🥰 THERE IS POTENTIAL!";
+        if(percent>=95) msg="💍 Soulmates detected";
+        else if(percent>=85) msg="💕 Strong match";
+        else if(percent>=75) msg="❤️ Good connection";
+        else msg="🥰 There is potential";
 
         let m=document.getElementById("message");
         m.innerText=msg;
-        setTimeout(()=>m.classList.add("show"),200);
+        m.classList.add("show");
 
-        /* google form */
+        // Google Form submit
         document.getElementById("g1").value=name1;
         document.getElementById("g2").value=name2;
         document.getElementById("g3").value=ring;
 
         document.getElementById("googleForm").submit();
 
-    },1800);
+    },1200);
 }
 
 </script>
