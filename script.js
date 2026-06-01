@@ -1,30 +1,39 @@
 function isValidName(name){
 
-    name = name.trim();
+    name = name.trim().toLowerCase();
 
-    // at least 3 characters
+    // ❌ must be at least 3 letters
     if(name.length < 3) return false;
 
-    // no numbers allowed
-    if(/[0-9]/.test(name)) return false;
-
-    // must contain at least one vowel
-    if(!/[aeiouAEIOU]/.test(name)) return false;
-
-    // must contain letters only (basic safety)
+    // ❌ no numbers or symbols
     if(!/^[a-zA-Z\s]+$/.test(name)) return false;
 
-    let vowels = name.match(/[aeiouAEIOU]/g);
-    let consonants = name.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g);
+    // ❌ must contain at least one vowel
+    if(!/[aeiou]/.test(name)) return false;
 
-    if(!vowels || !consonants) return false;
+    // split words (for full names like "John Doe")
+    let parts = name.split(" ");
 
-    // too many consonants = likely fake word
-    if(consonants.length > vowels.length * 4) return false;
+    for(let part of parts){
+
+        // ignore empty spaces
+        if(part.length === 0) continue;
+
+        // ❌ each word must be at least 3 letters
+        if(part.length < 3) return false;
+
+        // ❌ prevent fake gibberish like "sdwq"
+        let vowels = part.match(/[aeiou]/g);
+        let consonants = part.match(/[bcdfghjklmnpqrstvwxyz]/g);
+
+        if(!vowels || !consonants) return false;
+
+        // ❌ too many consonants = random spam word
+        if(consonants.length > vowels.length * 4) return false;
+    }
 
     return true;
 }
-
 function calculateLove(){
 
     let n1 = document.getElementById("name1").value.trim();
