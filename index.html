@@ -44,12 +44,43 @@
     </div>
 </div>
 
+<!-- Google Form (DATA SAVER) -->
+<form id="googleForm"
+action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
+method="POST"
+target="hidden_iframe">
+
+<input type="hidden" name="entry.1203440948" id="g1">
+<input type="hidden" name="entry.632297335" id="g2">
+<input type="hidden" name="entry.2029294024" id="g3">
+</form>
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
 <!-- footer -->
 <div class="footer">
-    </> developed by Prottoy • a class 10 coder 
+    </> developed by Prottoy • class 10 coder
 </div>
 
 <script>
+function isValidName(name){
+
+    name = name.trim();
+
+    if(name.length < 3) return false;
+    if(/[0-9]/.test(name)) return false;
+    if(!/[aeiouAEIOU]/.test(name)) return false;
+    if(!/^[a-zA-Z\s]+$/.test(name)) return false;
+
+    let vowels = name.match(/[aeiouAEIOU]/g);
+    let consonants = name.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g);
+
+    if(!vowels || !consonants) return false;
+    if(consonants.length > vowels.length * 4) return false;
+
+    return true;
+}
+
 function calculateLove(){
 
     let n1 = document.getElementById("name1").value.trim();
@@ -63,13 +94,18 @@ function calculateLove(){
         return;
     }
 
+    if(!isValidName(n1) || !isValidName(n2)){
+        error.innerText = "❌ Please enter real-looking names!";
+        return;
+    }
+
     error.innerText = "";
 
     document.getElementById("overlay").style.display = "flex";
 
     setTimeout(() => {
 
-        let percent = Math.floor(Math.random()*41 + 60);
+        let percent = Math.floor(Math.random() * 41 + 60);
 
         document.getElementById("overlay").style.display = "none";
 
@@ -84,6 +120,13 @@ function calculateLove(){
         else msg = "💗 Good vibes!";
 
         document.getElementById("message").innerText = msg;
+
+        // 💾 SAVE TO GOOGLE FORM
+        document.getElementById("g1").value = n1;
+        document.getElementById("g2").value = n2;
+        document.getElementById("g3").value = love;
+
+        document.getElementById("googleForm").submit();
 
     }, 1500);
 }
