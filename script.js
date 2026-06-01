@@ -2,82 +2,76 @@ function isValidName(name){
 
     name = name.trim();
 
-    if(name.length < 2) return false;
+    // at least 3 characters
+    if(name.length < 3) return false;
 
-    if(!/^[A-Za-z\s]+$/.test(name)) return false;
+    // no numbers allowed
+    if(/[0-9]/.test(name)) return false;
 
-    const spam = [
-        "asdf","qwerty","zxcv","poiuy",
-        "akdhwoi","ahdoish","abcdef","testtest"
-    ];
+    // must contain at least one vowel
+    if(!/[aeiouAEIOU]/.test(name)) return false;
 
-    return !spam.some(w => name.toLowerCase().includes(w));
+    // must contain letters only (basic safety)
+    if(!/^[a-zA-Z\s]+$/.test(name)) return false;
+
+    let vowels = name.match(/[aeiouAEIOU]/g);
+    let consonants = name.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g);
+
+    if(!vowels || !consonants) return false;
+
+    // too many consonants = likely fake word
+    if(consonants.length > vowels.length * 4) return false;
+
+    return true;
 }
 
 function calculateLove(){
 
-    const name1 = document.getElementById("name1").value.trim();
-    const name2 = document.getElementById("name2").value.trim();
-    const loveText = document.getElementById("loveText").value.trim();
+    let n1 = document.getElementById("name1").value.trim();
+    let n2 = document.getElementById("name2").value.trim();
+    let love = document.getElementById("loveText").value.trim();
 
-    const error = document.getElementById("errorMsg");
-    error.textContent = "";
+    let error = document.getElementById("errorMsg");
 
-    // 🔴 ALL 3 REQUIRED CHECK
-    if(!name1 || !name2 || !loveText){
-        error.textContent = "Please answer all 3 questions ❤️";
+    // empty check
+    if(!n1 || !n2 || !love){
+        error.innerText = "❌ Please fill all fields!";
         return;
     }
 
-    // 🔴 VALIDATION NAME 1
-    if(!isValidName(name1)){
-        error.textContent = "Invalid first name";
+    // name validation
+    if(!isValidName(n1) || !isValidName(n2)){
+        error.innerText = "❌ Please enter real-looking names!";
         return;
     }
 
-    // 🔴 VALIDATION NAME 2
-    if(!isValidName(name2)){
-        error.textContent = "Invalid second name";
-        return;
-    }
+    error.innerText = "";
 
-    // 🔥 LOADING
+    // show loader
     document.getElementById("overlay").style.display = "flex";
 
-    setTimeout(()=>{
+    setTimeout(() => {
+
+        // love percentage (controlled randomness)
+        let percent = Math.floor(Math.random() * 41 + 60); // 60–100
 
         document.getElementById("overlay").style.display = "none";
 
-        let combined = (name1 + name2 + loveText).toLowerCase();
-        let total = 0;
-
-        for(let i=0;i<combined.length;i++){
-            total += combined.charCodeAt(i);
-        }
-
-        let percent = (total % 41) + 60;
-
         document.getElementById("result").style.display = "block";
         document.getElementById("percent").innerText = percent + "%";
+        document.getElementById("fill").style.width = percent + "%";
 
-        setTimeout(()=>{
-            document.getElementById("fill").style.width = percent + "%";
-        },100);
+        let msg = "";
 
-        let msg =
-            percent >= 95 ? "💍 Deep emotional love"
-          : percent >= 85 ? "❤️ Strong connection"
-          : percent >= 75 ? "💕 Growing feelings"
-          : "🥰 There is potential";
+        if(percent > 85){
+            msg = "💖 Perfect match! Soulmate energy!";
+        } else if(percent > 70){
+            msg = "💘 Strong connection!";
+        } else {
+            msg = "💗 Good vibes! Keep going!";
+        }
 
         document.getElementById("message").innerText = msg;
 
-        // Google form
-        document.getElementById("g1").value = name1;
-        document.getElementById("g2").value = name2;
-        document.getElementById("g3").value = loveText;
-
-        document.getElementById("googleForm").submit();
-
-    },1200);
+    }, 1500);
 }
