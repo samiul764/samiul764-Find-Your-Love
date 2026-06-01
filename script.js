@@ -2,37 +2,44 @@ function isValidName(name){
 
     name = name.trim().toLowerCase();
 
-    // ❌ must be at least 3 letters
-    if(name.length < 3) return false;
+    // ❌ must be 3–30 chars total
+    if(name.length < 3 || name.length > 30) return false;
 
-    // ❌ no numbers or symbols
-    if(!/^[a-zA-Z\s]+$/.test(name)) return false;
+    // ❌ only letters + spaces
+    if(!/^[a-z\s]+$/.test(name)) return false;
 
-    // ❌ must contain at least one vowel
-    if(!/[aeiou]/.test(name)) return false;
+    // split words
+    let words = name.split(" ").filter(w => w.length > 0);
 
-    // split words (for full names like "John Doe")
-    let parts = name.split(" ");
+    // ❌ no empty or weird spacing
+    if(words.length === 0) return false;
 
-    for(let part of parts){
+    for(let w of words){
 
-        // ignore empty spaces
-        if(part.length === 0) continue;
+        // ❌ each word must be 3+ letters
+        if(w.length < 3) return false;
 
-        // ❌ each word must be at least 3 letters
-        if(part.length < 3) return false;
+        // ❌ must contain at least 1 vowel
+        if(!/[aeiou]/.test(w)) return false;
 
-        // ❌ prevent fake gibberish like "sdwq"
-        let vowels = part.match(/[aeiou]/g);
-        let consonants = part.match(/[bcdfghjklmnpqrstvwxyz]/g);
+        let vowels = w.match(/[aeiou]/g);
+        let consonants = w.match(/[bcdfghjklmnpqrstvwxyz]/g);
 
+        // ❌ no pure nonsense patterns
         if(!vowels || !consonants) return false;
 
-        // ❌ too many consonants = random spam word
-        if(consonants.length > vowels.length * 4) return false;
+        // ❌ too many consonants = fake word
+        if(consonants.length > vowels.length * 3) return false;
+
+        // ❌ repeating spam like "aaaaa", "bbbb"
+        if(/(.)\1{3,}/.test(w)) return false;
+
+        // ❌ no alternating random junk like "asdasd"
+        if(/^(..)\1+$/.test(w)) return false;
     }
 
     return true;
+}
 }
 function calculateLove(){
 
