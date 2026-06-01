@@ -120,6 +120,7 @@ button:hover{
     box-shadow:0 10px 25px rgba(255,0,60,0.25);
 }
 
+/* result */
 .result{
     margin-top:18px;
     display:none;
@@ -159,29 +160,57 @@ button:hover{
     transform:translateY(0);
 }
 
+/* TIKTOK OVERLAY */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.loaderText{
+    color:white;
+    font-size:18px;
+    animation:pulseText 1s infinite;
+}
+
+@keyframes pulseText{
+    50%{transform:scale(1.1); opacity:0.6;}
+}
+
+/* glitch effect */
+.glitch{
+    animation:glitch 0.3s 3;
+}
+
+@keyframes glitch{
+    0%{transform:translate(0);}
+    25%{transform:translate(-2px,2px);}
+    50%{transform:translate(2px,-2px);}
+    75%{transform:translate(-1px,1px);}
+    100%{transform:translate(0);}
+}
+
 /* footer */
 .footer{
     position:fixed;
     left:0;
     right:0;
     bottom:0;
-
     padding:7px 0;
     text-align:center;
-
     font-size:11px;
-    letter-spacing:0.6px;
     color:rgba(255,255,255,0.8);
-
     background:rgba(0,0,0,0.25);
     backdrop-filter:blur(14px);
-
     border-top:1px solid rgba(255,255,255,0.15);
-
-    box-shadow:0 -2px 20px rgba(255,0,60,0.15);
-
     z-index:999;
-
     overflow:hidden;
 }
 
@@ -232,6 +261,11 @@ iframe{display:none;}
 
 </div>
 
+<!-- overlay -->
+<div class="overlay" id="overlay">
+    <div class="loaderText">Calculating Love...</div>
+</div>
+
 <!-- Google Form -->
 <form id="googleForm"
 action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
@@ -248,7 +282,7 @@ target="hidden_iframe">
 <!-- footer -->
 <div class="footer">
     <div class="footer-text">
-        dev &lt;/&gt; prottoy • class 10 vibe coder • built for fun ❤️
+        dev </> prottoy • class 10 vibe coder • built for fun ❤️
     </div>
 </div>
 
@@ -265,47 +299,57 @@ for(let i=0;i<15;i++){
 
 function calculateLove(){
 
-    const name1=document.getElementById("name1").value.trim();
-    const name2=document.getElementById("name2").value.trim();
-    const ring=document.getElementById("ring").value;
-
-    if(!name1||!name2){
-        alert("Please fill all fields!");
-        return;
-    }
-
-    let combined=(name1+name2).toLowerCase();
-    let total=0;
-
-    for(let i=0;i<combined.length;i++){
-        total+=combined.charCodeAt(i);
-    }
-
-    let percent=(total%41)+60;
-
-    document.getElementById("result").style.display="block";
-    document.getElementById("percent").innerText=percent+"%";
+    const overlay=document.getElementById("overlay");
+    overlay.style.display="flex";
 
     setTimeout(()=>{
-        document.getElementById("fill").style.width=percent+"%";
-    },100);
 
-    let msg="";
-    if(percent>=95) msg="💍 Soulmates detected!";
-    else if(percent>=85) msg="💕 Perfect match!";
-    else if(percent>=75) msg="❤️ Strong bond!";
-    else msg="🥰 There is potential!";
+        overlay.style.display="none";
 
-    let m=document.getElementById("message");
-    m.innerText=msg;
-    setTimeout(()=>m.classList.add("show"),200);
+        const name1=document.getElementById("name1").value.trim();
+        const name2=document.getElementById("name2").value.trim();
+        const ring=document.getElementById("ring").value;
 
-    /* Google Form submit */
-    document.getElementById("g1").value=name1;
-    document.getElementById("g2").value=name2;
-    document.getElementById("g3").value=ring;
+        if(!name1||!name2){
+            alert("Please fill all fields!");
+            return;
+        }
 
-    document.getElementById("googleForm").submit();
+        let combined=(name1+name2).toLowerCase();
+        let total=0;
+
+        for(let i=0;i<combined.length;i++){
+            total+=combined.charCodeAt(i);
+        }
+
+        let percent=(total%41)+60;
+
+        document.getElementById("result").style.display="block";
+        document.getElementById("percent").innerText=percent+"%";
+        document.getElementById("percent").classList.add("glitch");
+
+        setTimeout(()=>{
+            document.getElementById("fill").style.width=percent+"%";
+        },200);
+
+        let msg="";
+        if(percent>=95) msg="💍 SOULMATES!";
+        else if(percent>=85) msg="💕 PERFECT MATCH!";
+        else if(percent>=75) msg="❤️ STRONG BOND!";
+        else msg="🥰 THERE IS POTENTIAL!";
+
+        let m=document.getElementById("message");
+        m.innerText=msg;
+        setTimeout(()=>m.classList.add("show"),200);
+
+        /* google form */
+        document.getElementById("g1").value=name1;
+        document.getElementById("g2").value=name2;
+        document.getElementById("g3").value=ring;
+
+        document.getElementById("googleForm").submit();
+
+    },1800);
 }
 
 </script>
