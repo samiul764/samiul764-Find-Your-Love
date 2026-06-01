@@ -8,6 +8,8 @@
 html,body{
     width:100%;
     min-height:100%;
+    -webkit-text-size-adjust:100%;
+    touch-action:manipulation;
 }
 
 body{
@@ -55,6 +57,7 @@ input{
     background:rgba(255,255,255,0.15);
     color:white;
     font-size:14px;
+    transition:0.2s;
 }
 
 input::placeholder{
@@ -197,9 +200,75 @@ button:hover{
     opacity:0.8;
 }
 
-@media(max-width:480px){
+/* ===================== */
+/* 📱 MOBILE FIX (FINAL) */
+/* ===================== */
+
+@media (max-width: 768px){
+    .container{
+        max-width:380px;
+    }
+}
+
+@media (max-width: 480px){
+
+    body{
+        padding:14px;
+        align-items:center;
+    }
+
+    .container{
+        width:100%;
+        max-width:95%;
+        padding:20px;
+        border-radius:24px;
+    }
+
+    .heart{
+        font-size:44px;
+    }
+
+    h1{
+        font-size:20px;
+        margin:8px 0 14px;
+    }
+
+    input{
+        padding:12px;
+        font-size:13px;
+        border-radius:12px;
+    }
+
+    button{
+        padding:12px;
+        font-size:14px;
+        border-radius:12px;
+    }
+
+    .percent{
+        font-size:30px;
+    }
+
+    .bar{
+        height:12px;
+    }
+
+    .message{
+        font-size:13px;
+    }
+
+    .error{
+        font-size:12px;
+    }
+
+    .loaderCard{
+        width:85%;
+        padding:18px;
+    }
+
     .footer{
         font-size:11px;
-        padding:7px 14px;
+        padding:7px 12px;
+        bottom:10px;
     }
 }
