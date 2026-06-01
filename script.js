@@ -29,7 +29,7 @@ function calculateLove(){
         return;
     }
 
-    // NAME VALIDATION
+    // VALIDATION
     if(!isValidName(name1)){
         error.textContent = "Invalid first name";
         return;
@@ -42,7 +42,7 @@ function calculateLove(){
 
     document.getElementById("overlay").style.display = "flex";
 
-    setTimeout(() => {
+    setTimeout(()=>{
 
         document.getElementById("overlay").style.display = "none";
 
@@ -58,9 +58,9 @@ function calculateLove(){
         document.getElementById("result").style.display = "block";
         document.getElementById("percent").innerText = percent + "%";
 
-        setTimeout(() => {
+        setTimeout(()=>{
             document.getElementById("fill").style.width = percent + "%";
-        }, 100);
+        },100);
 
         let msg =
             percent >= 95 ? "💍 Deep emotional love"
@@ -76,5 +76,5 @@ function calculateLove(){
 
         document.getElementById("googleForm").submit();
 
-    }, 1200);
+    },1200);
 }
