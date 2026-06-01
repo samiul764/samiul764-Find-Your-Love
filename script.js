@@ -23,23 +23,25 @@ function calculateLove(){
     const error = document.getElementById("errorMsg");
     error.textContent = "";
 
-    // REQUIRED CHECK
+    // 🔴 ALL 3 REQUIRED CHECK
     if(!name1 || !name2 || !loveText){
-        error.textContent = "All fields are required ❤️";
+        error.textContent = "Please answer all 3 questions ❤️";
         return;
     }
 
-    // VALIDATION
+    // 🔴 VALIDATION NAME 1
     if(!isValidName(name1)){
         error.textContent = "Invalid first name";
         return;
     }
 
+    // 🔴 VALIDATION NAME 2
     if(!isValidName(name2)){
         error.textContent = "Invalid second name";
         return;
     }
 
+    // 🔥 LOADING
     document.getElementById("overlay").style.display = "flex";
 
     setTimeout(()=>{
@@ -49,7 +51,7 @@ function calculateLove(){
         let combined = (name1 + name2 + loveText).toLowerCase();
         let total = 0;
 
-        for(let i = 0; i < combined.length; i++){
+        for(let i=0;i<combined.length;i++){
             total += combined.charCodeAt(i);
         }
 
@@ -70,6 +72,7 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
+        // Google form
         document.getElementById("g1").value = name1;
         document.getElementById("g2").value = name2;
         document.getElementById("g3").value = loveText;
