@@ -312,21 +312,30 @@ function isValidName(name){
 }
 function calculateLove(){
 
+    const name1=document.getElementById("name1").value.trim();
+    const name2=document.getElementById("name2").value.trim();
+    const loveText=document.getElementById("loveText").value.trim();
+
+    const error=document.getElementById("errorMsg");
+    error.textContent="";
+
+    if(!name1 || !name2){
+        error.textContent="Please enter both names.";
+        return;
+    }
+
+    if(!isValidName(name1)){
+        error.textContent="Please enter a valid first name.";
+        return;
+    }
+
+    if(!isValidName(name2)){
+        error.textContent="Please enter a valid second name.";
+        return;
+    }
+
     const overlay=document.getElementById("overlay");
     overlay.style.display="flex";
-
-    setTimeout(()=>{
-
-        overlay.style.display="none";
-
-        const name1=document.getElementById("name1").value.trim();
-        const name2=document.getElementById("name2").value.trim();
-        const loveText=document.getElementById("loveText").value.trim();
-
-        if(!name1 || !name2){
-            alert("Please fill all names!");
-            return;
-        }
 
         let combined=(name1+name2+loveText).toLowerCase();
         let total=0;
