@@ -21,46 +21,40 @@ body{
     justify-content:center;
     align-items:center;
     background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
-    overflow:hidden;
+    padding:20px;
+    overflow-x:hidden;
 }
 
-/* floating particles */
-.particle{
-    position:absolute;
-    width:8px;
-    height:8px;
-    background:white;
-    border-radius:50%;
-    opacity:0.3;
-    animation:floatUp 10s linear infinite;
-}
-
-@keyframes floatUp{
-    0%{transform:translateY(100vh) scale(0);}
-    100%{transform:translateY(-10vh) scale(1);}
-}
-
+/* container (PC + Mobile adaptive) */
 .container{
-    width:90%;
-    max-width:400px;
+    width:100%;
+    max-width:420px;   /* PC limit */
+    min-width:280px;
     background:rgba(255,255,255,0.12);
     backdrop-filter:blur(25px);
     border-radius:28px;
-    padding:28px;
+    padding:clamp(18px, 4vw, 28px);
     color:white;
     box-shadow:0 20px 60px rgba(0,0,0,0.3);
-    animation:fadeIn 1s ease;
-    transform:translateY(0);
+    animation:fadeIn 0.8s ease;
+}
+
+/* PC bigger feel */
+@media(min-width:900px){
+    .container{
+        max-width:460px;
+        padding:32px;
+    }
 }
 
 @keyframes fadeIn{
-    from{opacity:0; transform:translateY(30px);}
+    from{opacity:0; transform:translateY(25px);}
     to{opacity:1; transform:translateY(0);}
 }
 
 .heart{
     text-align:center;
-    font-size:52px;
+    font-size:clamp(40px,6vw,55px);
     animation:beat 1.2s infinite;
 }
 
@@ -70,25 +64,22 @@ body{
 
 h1{
     text-align:center;
-    font-size:22px;
-    margin:10px 0 20px;
-    letter-spacing:0.5px;
+    font-size:clamp(18px,3.5vw,24px);
+    margin:10px 0 18px;
 }
 
-.input-group{
-    margin-bottom:12px;
-}
-
+/* inputs */
 input{
     width:100%;
     padding:14px;
+    margin-bottom:10px;
     border:none;
     outline:none;
     border-radius:14px;
     background:rgba(255,255,255,0.15);
     color:white;
     font-size:14px;
-    transition:0.3s;
+    transition:0.25s;
 }
 
 input:focus{
@@ -100,74 +91,53 @@ input::placeholder{
     color:rgba(255,255,255,0.6);
 }
 
+/* button */
 button{
     width:100%;
     padding:14px;
-    margin-top:10px;
+    margin-top:8px;
     border:none;
     border-radius:14px;
     background:linear-gradient(90deg,#fff,#ffd6df);
     color:#ff003c;
     font-weight:700;
     cursor:pointer;
-    transition:0.3s;
-    position:relative;
-    overflow:hidden;
+    transition:0.25s;
+    font-size:15px;
 }
 
 button:hover{
     transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(255,0,60,0.3);
+    box-shadow:0 10px 25px rgba(255,0,60,0.25);
 }
 
 button:active{
     transform:scale(0.98);
 }
 
-/* loading pulse */
-button.loading::after{
-    content:"";
-    position:absolute;
-    width:100%;
-    height:100%;
-    left:0;
-    top:0;
-    background:rgba(255,255,255,0.4);
-    animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-    0%{opacity:0;}
-    50%{opacity:1;}
-    100%{opacity:0;}
-}
-
+/* result */
 .result{
-    margin-top:20px;
+    margin-top:18px;
     display:none;
-    animation:pop 0.6s ease;
+    animation:pop 0.5s ease;
 }
 
 @keyframes pop{
-    from{transform:scale(0.8); opacity:0;}
-    to{transform:scale(1); opacity:1;}
+    from{opacity:0; transform:scale(0.9);}
+    to{opacity:1; transform:scale(1);}
 }
 
 .percent{
     text-align:center;
-    font-size:36px;
+    font-size:clamp(28px,5vw,36px);
     font-weight:800;
     margin-bottom:10px;
-    animation:glow 1.5s infinite;
 }
 
-@keyframes glow{
-    50%{text-shadow:0 0 15px rgba(255,255,255,0.8);}
-}
-
+/* bar */
 .bar{
     width:100%;
-    height:16px;
+    height:14px;
     background:rgba(255,255,255,0.2);
     border-radius:50px;
     overflow:hidden;
@@ -177,16 +147,17 @@ button.loading::after{
     width:0%;
     height:100%;
     background:linear-gradient(90deg,#fff,#ffb6c1);
-    transition:1.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transition:1.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* message */
 .message{
     text-align:center;
     margin-top:12px;
     font-size:15px;
     opacity:0;
     transform:translateY(10px);
-    transition:0.6s;
+    transition:0.5s;
 }
 
 .message.show{
@@ -194,11 +165,15 @@ button.loading::after{
     transform:translateY(0);
 }
 
-/* mobile */
-@media(max-width:480px){
-    .container{padding:20px;}
-    h1{font-size:20px;}
-    .percent{font-size:30px;}
+/* small screens tweaks */
+@media(max-width:400px){
+    body{padding:12px;}
+    input{padding:12px;}
+}
+
+/* hidden iframe */
+iframe{
+    display:none;
 }
 </style>
 </head>
@@ -214,7 +189,7 @@ button.loading::after{
     <input type="text" id="name2" placeholder="Their Name">
     <input type="number" id="ring" placeholder="Ring Size (mm)">
 
-    <button id="btn" onclick="calculateLove()">Calculate ❤️</button>
+    <button onclick="calculateLove()">Calculate ❤️</button>
 
     <div class="result" id="result">
         <div class="percent" id="percent">0%</div>
@@ -228,7 +203,7 @@ button.loading::after{
 
 </div>
 
-<!-- Google Form -->
+<!-- GOOGLE FORM -->
 <form id="googleForm"
 action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
 method="POST"
@@ -242,30 +217,14 @@ target="hidden_iframe">
 <iframe name="hidden_iframe"></iframe>
 
 <script>
-
-/* floating particles */
-for(let i=0;i<18;i++){
-    let p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random()*100 + "vw";
-    p.style.animationDuration = (5 + Math.random()*6) + "s";
-    document.body.appendChild(p);
-}
-
 function calculateLove(){
-
-    const btn = document.getElementById("btn");
-    btn.classList.add("loading");
-    btn.innerText = "Calculating...";
 
     const name1 = document.getElementById("name1").value.trim();
     const name2 = document.getElementById("name2").value.trim();
     const ring = document.getElementById("ring").value;
 
     if(!name1 || !name2){
-        alert("Please enter both names!");
-        btn.classList.remove("loading");
-        btn.innerText = "Calculate ❤️";
+        alert("Please fill all fields!");
         return;
     }
 
@@ -283,31 +242,25 @@ function calculateLove(){
 
     setTimeout(()=>{
         document.getElementById("fill").style.width = percent + "%";
-    },200);
+    },120);
 
     let msg = "";
     if(percent >= 95) msg = "💍 Soulmates detected!";
-    else if(percent >= 85) msg = "💕 A perfect match!";
+    else if(percent >= 85) msg = "💕 Perfect match!";
     else if(percent >= 75) msg = "❤️ Strong bond!";
     else msg = "🥰 There is potential!";
 
-    let messageEl = document.getElementById("message");
-    messageEl.innerText = msg;
-    setTimeout(()=>messageEl.classList.add("show"),300);
+    let m = document.getElementById("message");
+    m.innerText = msg;
+    setTimeout(()=>m.classList.add("show"),200);
 
-    /* submit to google form */
+    // submit to google form
     document.getElementById("g1").value = name1;
     document.getElementById("g2").value = name2;
     document.getElementById("g3").value = ring;
 
     document.getElementById("googleForm").submit();
-
-    setTimeout(()=>{
-        btn.classList.remove("loading");
-        btn.innerText = "Calculate ❤️";
-    },1200);
 }
-
 </script>
 
 </body>
