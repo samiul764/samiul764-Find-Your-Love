@@ -1,44 +1,63 @@
-function isValidName(name){
+let canClick = true;
+
+// 🧠 GOD MODE NAME VALIDATOR
+function getNameScore(name){
 
     name = name.trim().toLowerCase();
 
-    // ❌ must be 3–30 chars total
-    if(name.length < 3 || name.length > 30) return false;
+    let score = 100;
 
-    // ❌ only letters + spaces
-    if(!/^[a-z\s]+$/.test(name)) return false;
+    if(name.length < 3 || name.length > 30) return 0;
+    if(!/^[a-z\s]+$/.test(name)) return 0;
 
-    // split words
     let words = name.split(" ").filter(w => w.length > 0);
-
-    // ❌ no empty or weird spacing
-    if(words.length === 0) return false;
 
     for(let w of words){
 
-        // ❌ each word must be 3+ letters
-        if(w.length < 3) return false;
+        if(w.length < 3) score -= 35;
 
-        // ❌ must contain at least 1 vowel
-        if(!/[aeiou]/.test(w)) return false;
+        let vowels = (w.match(/[aeiou]/g) || []).length;
+        let consonants = (w.match(/[bcdfghjklmnpqrstvwxyz]/g) || []).length;
 
-        let vowels = w.match(/[aeiou]/g);
-        let consonants = w.match(/[bcdfghjklmnpqrstvwxyz]/g);
+        if(vowels === 0) score -= 40;
+        if(consonants > vowels * 4) score -= 25;
 
-        // ❌ no pure nonsense patterns
-        if(!vowels || !consonants) return false;
+        if(/(.)\1{3,}/.test(w)) score -= 30;
+        if(/^(..)\1+$/.test(w)) score -= 35;
 
-        // ❌ too many consonants = fake word
-        if(consonants.length > vowels.length * 3) return false;
-
-        // ❌ repeating spam like "aaaaa", "bbbb"
-        if(/(.)\1{3,}/.test(w)) return false;
-
-        // ❌ no alternating random junk like "asdasd"
-        if(/^(..)\1+$/.test(w)) return false;
+        let unique = new Set(w).size;
+        if(unique < 4) score -= 30;
     }
 
-    return true;
+    return Math.max(0, score);
+}
+
+// validate function
+function isValidName(name){
+    return getNameScore(name) >= 75;
+}
+
+// error system
+function getErrorMessage(n1, n2){
+
+    let s1 = getNameScore(n1);
+    let s2 = getNameScore(n2);
+
+    if(s1 >= 75 && s2 >= 75) return "";
+
+    if(s1 < 30 && s2 < 30)
+        return "❌ Both names look fake 😭";
+
+    if(s1 < 75 && s2 < 75)
+        return "❌ Both names are invalid 😭";
+
+    if(s1 < 75)
+        return "❌ Your name looks invalid 😭";
+
+    if(s2 < 75)
+        return "❌ Their name looks invalid 😭";
+
+    return "❌ Invalid input";
 }
 }
 function calculateLove(){
