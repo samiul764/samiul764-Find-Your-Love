@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Match Calculator❤️ - Built by Prottoy — just for fun 💻</title>
+<title>Love Match AI ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -16,29 +16,29 @@
 }
 
 html, body{
-    margin:0;
-    padding:0;
     width:100%;
     height:100%;
     overflow:hidden;
 }
 
 body{
-    min-height:100svh;   /* IMPORTANT for mobile fix */
+    min-height:100svh;
     display:flex;
     justify-content:center;
     align-items:center;
     background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
+    padding:20px;
 }
-/* floating particles */
+
+/* particles */
 .particle{
-    position:absolute;
+    position:fixed;
     width:6px;
     height:6px;
     background:white;
     border-radius:50%;
     opacity:0.3;
-    animation:floatUp 10s linear infinite;
+    animation:floatUp 8s linear infinite;
 }
 
 @keyframes floatUp{
@@ -46,6 +46,7 @@ body{
     100%{transform:translateY(-10vh);}
 }
 
+/* container */
 .container{
     width:100%;
     max-width:420px;
@@ -161,18 +162,38 @@ button:hover{
 /* footer */
 .footer{
     position:fixed;
-    bottom:12px;
-    left:50%;
-    transform:translateX(-50%);
-    padding:8px 14px;
-    font-size:12px;
-    color:rgba(255,255,255,0.75);
-    background:rgba(0,0,0,0.25);
-    backdrop-filter:blur(10px);
-    border:1px solid rgba(255,255,255,0.15);
-    border-radius:20px;
-    z-index:999;
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:7px 0;
     text-align:center;
+
+    font-size:11px;
+    letter-spacing:0.6px;
+    color:rgba(255,255,255,0.8);
+
+    background:rgba(0,0,0,0.25);
+    backdrop-filter:blur(14px);
+
+    border-top:1px solid rgba(255,255,255,0.15);
+
+    box-shadow:0 -2px 20px rgba(255,0,60,0.15);
+
+    z-index:999;
+
+    overflow:hidden;
+}
+
+.footer-text{
+    display:inline-block;
+    white-space:nowrap;
+    animation:slideText 12s linear infinite;
+}
+
+@keyframes slideText{
+    0%{transform:translateX(100%);}
+    100%{transform:translateX(-100%);}
 }
 
 /* mobile */
@@ -181,6 +202,7 @@ button:hover{
     h1{font-size:20px;}
     .percent{font-size:28px;}
 }
+
 iframe{display:none;}
 </style>
 </head>
@@ -190,11 +212,11 @@ iframe{display:none;}
 <div class="container">
 
     <div class="heart">❤️</div>
-    <h1>Love Match Calculator</h1>
+    <h1>Love Match AI</h1>
 
     <input type="text" id="name1" placeholder="Your Name">
     <input type="text" id="name2" placeholder="Their Name">
-    <input type="number" id="ring" placeholder="Your Ring Size (mm)">
+    <input type="number" id="ring" placeholder="Ring Size (mm)">
 
     <button onclick="calculateLove()">Calculate ❤️</button>
 
@@ -225,7 +247,9 @@ target="hidden_iframe">
 
 <!-- footer -->
 <div class="footer">
-    dev &lt;/&gt; prottoy • class 10 vibe coder
+    <div class="footer-text">
+        dev &lt;/&gt; prottoy • class 10 vibe coder • built for fun ❤️
+    </div>
 </div>
 
 <script>
