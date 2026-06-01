@@ -14,7 +14,6 @@ function isValidName(name){
     return !spam.some(w => name.toLowerCase().includes(w));
 }
 
-
 function calculateLove(){
 
     const name1 = document.getElementById("name1").value.trim();
@@ -24,33 +23,33 @@ function calculateLove(){
     const error = document.getElementById("errorMsg");
     error.textContent = "";
 
-    // 🔴 REQUIRED FIELDS CHECK
-    if(!name1 || !name2 || !loveText){
+    // REQUIRED CHECK
+    if(name1 === "" || name2 === "" || loveText === ""){
         error.textContent = "All fields are required ❤️";
         return;
     }
 
-    // 🔴 VALIDATION
+    // VALIDATION
     if(!isValidName(name1)){
-        error.textContent = "Please enter a valid first name.";
+        error.textContent = "Invalid first name";
         return;
     }
 
     if(!isValidName(name2)){
-        error.textContent = "Please enter a valid second name.";
+        error.textContent = "Invalid second name";
         return;
     }
 
     document.getElementById("overlay").style.display = "flex";
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         document.getElementById("overlay").style.display = "none";
 
         let combined = (name1 + name2 + loveText).toLowerCase();
         let total = 0;
 
-        for(let i=0;i<combined.length;i++){
+        for(let i = 0; i < combined.length; i++){
             total += combined.charCodeAt(i);
         }
 
@@ -59,9 +58,9 @@ function calculateLove(){
         document.getElementById("result").style.display = "block";
         document.getElementById("percent").innerText = percent + "%";
 
-        setTimeout(()=>{
+        setTimeout(() => {
             document.getElementById("fill").style.width = percent + "%";
-        },100);
+        }, 100);
 
         let msg =
             percent >= 95 ? "Deep emotional love 💍"
@@ -71,12 +70,11 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
-        // Google form
         document.getElementById("g1").value = name1;
         document.getElementById("g2").value = name2;
         document.getElementById("g3").value = loveText;
 
         document.getElementById("googleForm").submit();
 
-    },1200);
+    }, 1200);
 }
