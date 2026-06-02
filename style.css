@@ -316,3 +316,65 @@ button:hover{
         opacity:0;
     }
 }
+/* Intro Love Letter */
+
+.introPopup{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(12px);
+    z-index:99999;
+}
+
+.letterBox{
+    width:90%;
+    max-width:430px;
+    background:white;
+    color:#222;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    animation:popupScale .5s ease;
+}
+
+@keyframes popupScale{
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.letterTop{
+    padding:16px;
+    text-align:center;
+    font-weight:700;
+    font-size:20px;
+    color:white;
+    background:linear-gradient(135deg,#ff4d6d,#ff003c);
+}
+
+.letterText{
+    padding:20px;
+    min-height:220px;
+    line-height:1.7;
+    font-size:14px;
+    white-space:pre-wrap;
+}
+
+#openLetterBtn,
+.closeBtn{
+    width:90%;
+    margin:0 auto 18px;
+    display:block;
+}
+
+.closeBtn{
+    display:none;
+}
