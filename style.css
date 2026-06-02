@@ -19,6 +19,10 @@ body{
     align-items:center;
     background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
     padding:20px;
+    position:relative;
+}
+
+/* FIXED body::before OUTSIDE body */
 body::before{
     content:"";
     position:fixed;
@@ -29,7 +33,6 @@ body::before{
     radial-gradient(circle at 50% 80%,rgba(255,255,255,.08),transparent 30%);
     pointer-events:none;
     z-index:-2;
-}
 }
 
 /* main card */
@@ -211,10 +214,7 @@ button:hover{
     opacity:0.8;
 }
 
-/* ===================== */
-/* 📱 MOBILE FIX (FINAL) */
-/* ===================== */
-
+/* mobile */
 @media (max-width: 768px){
     .container{
         max-width:380px;
@@ -235,47 +235,19 @@ button:hover{
         border-radius:24px;
     }
 
-    .heart{
-        font-size:44px;
-    }
+    .heart{ font-size:44px; }
+    h1{ font-size:20px; margin:8px 0 14px; }
 
-    h1{
-        font-size:20px;
-        margin:8px 0 14px;
-    }
+    input{ padding:12px; font-size:13px; border-radius:12px; }
+    button{ padding:12px; font-size:14px; border-radius:12px; }
 
-    input{
-        padding:12px;
-        font-size:13px;
-        border-radius:12px;
-    }
+    .percent{ font-size:30px; }
+    .bar{ height:12px; }
 
-    button{
-        padding:12px;
-        font-size:14px;
-        border-radius:12px;
-    }
+    .message{ font-size:13px; }
+    .error{ font-size:12px; }
 
-    .percent{
-        font-size:30px;
-    }
-
-    .bar{
-        height:12px;
-    }
-
-    .message{
-        font-size:13px;
-    }
-
-    .error{
-        font-size:12px;
-    }
-
-    .loaderCard{
-        width:85%;
-        padding:18px;
-    }
+    .loaderCard{ width:85%; padding:18px; }
 
     .footer{
         font-size:11px;
@@ -283,8 +255,8 @@ button:hover{
         bottom:10px;
     }
 }
-/* Floating Hearts Background */
 
+/* floating hearts */
 .particles{
     position:fixed;
     inset:0;
@@ -302,22 +274,12 @@ button:hover{
 }
 
 @keyframes floatHeart{
-    0%{
-        transform:translateY(0) rotate(0deg);
-        opacity:0;
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    100%{
-        transform:translateY(-120vh) rotate(360deg);
-        opacity:0;
-    }
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    10%{ opacity:1; }
+    100%{ transform:translateY(-120vh) rotate(360deg); opacity:0; }
 }
-/* Intro Love Letter */
 
+/* intro popup */
 .introPopup{
     position:fixed;
     inset:0;
@@ -342,14 +304,8 @@ button:hover{
 }
 
 @keyframes popupScale{
-    from{
-        opacity:0;
-        transform:scale(.8);
-    }
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
+    from{ opacity:0; transform:scale(.8); }
+    to{ opacity:1; transform:scale(1); }
 }
 
 .letterTop{
@@ -375,12 +331,8 @@ button:hover{
     margin:0 auto 18px;
     display:block;
 }
-background:
-linear-gradient(
-180deg,
-#fff,
-#fff5f7
-);
+
 .closeBtn{
     display:none;
+    background:linear-gradient(180deg,#fff,#fff5f7);
 }
