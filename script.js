@@ -84,7 +84,6 @@ function calculateLove(){
 
     error.innerText = "";
 
-    // reset UI every run (IMPORTANT FIX)
     document.getElementById("result").style.display = "none";
     document.getElementById("fill").style.width = "0%";
     document.getElementById("percent").innerText = "0%";
@@ -98,11 +97,8 @@ function calculateLove(){
         return;
     }
 
-    // show overlay (FIXED safe method)
     const overlay = document.getElementById("overlay");
     overlay.style.display = "flex";
-    overlay.style.opacity = "1";
-    overlay.style.visibility = "visible";
 
     setTimeout(() => {
 
@@ -124,13 +120,14 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
+        // ✅ GOOGLE FORM FIX (MUST BE INSIDE FUNCTION)
+        document.getElementById("g1").value = n1;
+        document.getElementById("g2").value = n2;
+        document.getElementById("g3").value = love;
+
+        document.getElementById("googleForm").submit();
+
         canClick = true;
 
     }, 1500);
 }
-// send to google form
-document.getElementById("g1").value = n1;
-document.getElementById("g2").value = n2;
-document.getElementById("g3").value = love;
-
-document.getElementById("googleForm").submit();
