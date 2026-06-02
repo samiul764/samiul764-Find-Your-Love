@@ -208,46 +208,65 @@ button:hover{
     z-index:-1;
 }
 
-/* 🌸 HEART + SPARKLE MIX */
+.particles{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-1;
+}
+
+/* 🌸 HEART + SPARKLE MIX (FIXED LAYERING) */
 .particles span{
     position:absolute;
     bottom:-50px;
 
-    /* glow hearts */
     color:rgba(255,255,255,0.45);
+
     text-shadow:
         0 0 6px rgba(255,255,255,0.6),
         0 0 12px rgba(255,100,150,0.8),
         0 0 20px rgba(255,0,100,0.5);
 
-    animation:floatWind linear infinite, pulseHeart 2.5s ease-in-out infinite;
+    animation:floatWind 10s linear infinite;
 }
 
-/* 💨 WIND DRIFT + FLOAT */
+/* 💨 WIND DRIFT (movement only) */
 @keyframes floatWind{
     0%{
-        transform:translate(0,0) rotate(0deg);
+        transform:translate(0,0) rotate(0deg) scale(1);
         opacity:0;
     }
     10%{
         opacity:1;
     }
     50%{
-        transform:translate(30px,-60vh) rotate(180deg);
+        transform:translate(30px,-60vh) rotate(180deg) scale(1.2);
     }
     100%{
-        transform:translate(-30px,-120vh) rotate(360deg);
+        transform:translate(-30px,-120vh) rotate(360deg) scale(1);
         opacity:0;
     }
 }
 
-/* 💗 PULSE EFFECT */
+/* 💗 SEPARATE PULSE LAYER (NO CONFLICT) */
+.particles span{
+    animation:floatWind 10s linear infinite;
+}
+
+.particles span::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    animation:pulseHeart 2.5s ease-in-out infinite;
+}
+
 @keyframes pulseHeart{
     0%,100%{
         transform:scale(1);
     }
     50%{
-        transform:scale(1.25);
+        transform:scale(1.3);
     }
 }
 /* MOBILE */
