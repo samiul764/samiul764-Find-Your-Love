@@ -117,6 +117,7 @@ body::before{
 h1{text-align:center;font-size:22px;margin:10px 0 18px;}
 
 input{
+    color: #ffffff;
     width:100%;
     padding:14px;
     margin-bottom:10px;
@@ -127,6 +128,10 @@ input{
     color:white;
     font-size:14px;
     transition:0.2s;
+}
+input::placeholder{
+    color: #f0f0f0;
+    opacity: 1;
 }
 
 input:focus{
