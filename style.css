@@ -19,6 +19,17 @@ body{
     align-items:center;
     background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
     padding:20px;
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.08),transparent 30%),
+    radial-gradient(circle at 80% 30%,rgba(255,255,255,.08),transparent 30%),
+    radial-gradient(circle at 50% 80%,rgba(255,255,255,.08),transparent 30%);
+    pointer-events:none;
+    z-index:-2;
+}
 }
 
 /* main card */
