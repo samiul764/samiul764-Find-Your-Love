@@ -12,18 +12,27 @@ html,body{
     touch-action:manipulation;
 }
 
+/* MOVING ROMANTIC BACKGROUND */
 body{
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
     padding:20px;
-    position:relative;
     overflow-x:hidden;
+
+    background: linear-gradient(-45deg,#ff4d6d,#ff003c,#2a0010,#ff2e63);
+    background-size:400% 400%;
+    animation:gradientMove 10s ease infinite;
 }
 
-/* background glow */
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* soft glow layer */
 body::before{
     content:"";
     position:fixed;
@@ -36,24 +45,35 @@ body::before{
     z-index:-2;
 }
 
-/* MAIN CARD */
+/* MAIN CARD (now more romantic glass) */
 .container{
     width:100%;
     max-width:420px;
-    background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(25px);
-    border-radius:28px;
+    background:rgba(255,255,255,0.10);
+    backdrop-filter:blur(30px);
+    border-radius:30px;
     padding:26px;
     color:white;
-    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    box-shadow:
+      0 20px 60px rgba(0,0,0,0.35),
+      0 0 40px rgba(255,0,60,0.15);
+
     position:relative;
     z-index:2;
+
+    animation:cardGlow 4s ease-in-out infinite;
+}
+
+@keyframes cardGlow{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-3px);}
 }
 
 /* heart */
 .heart{
     text-align:center;
     font-size:52px;
+    filter:drop-shadow(0 0 10px rgba(255,255,255,0.5));
 }
 
 /* title */
@@ -63,7 +83,7 @@ h1{
     margin:10px 0 18px;
 }
 
-/* inputs (FIX iOS zoom) */
+/* INPUTS (glass love style) */
 input{
     width:100%;
     padding:14px;
@@ -71,47 +91,43 @@ input{
     border:none;
     outline:none;
     border-radius:14px;
-    background:rgba(255,255,255,0.15);
+    background:rgba(255,255,255,0.14);
     color:white;
-    font-size:16px; /* IMPORTANT FIX */
-    transition:0.2s;
+    font-size:16px;
+    transition:0.25s;
 }
 
 input::placeholder{
-    color:rgba(255,255,255,0.6);
+    color:rgba(255,255,255,0.7);
 }
 
 input:focus{
-    background:rgba(255,255,255,0.25);
-    box-shadow:0 0 10px rgba(255,0,60,0.3);
+    background:rgba(255,255,255,0.22);
+    transform:scale(1.02);
 }
 
-/* BUTTON (FIX MOBILE STUCK HOVER) */
+/* BUTTON (now romantic gradient) */
 button{
     width:100%;
     padding:14px;
     border:none;
     border-radius:14px;
-    background:white;
+
+    background:linear-gradient(135deg,#ffffff,#ffe0e8,#ffd1dc);
     color:#ff003c;
-    font-weight:700;
+    font-weight:800;
     cursor:pointer;
-    transition:0.2s;
-    -webkit-tap-highlight-color:transparent;
+
+    transition:0.25s;
+    box-shadow:0 10px 30px rgba(255,0,60,0.25);
 }
 
 button:hover{
-    transform:scale(1.03);
+    transform:scale(1.05);
+    box-shadow:0 15px 40px rgba(255,0,60,0.35);
 }
 
-/* disable hover effect on mobile */
-@media (hover:none){
-    button:hover{
-        transform:none;
-    }
-}
-
-/* RESULT */
+/* RESULT CARD */
 .result{
     display:none;
     margin-top:18px;
@@ -125,10 +141,12 @@ button:hover{
 
 .percent{
     text-align:center;
-    font-size:34px;
+    font-size:36px;
     font-weight:800;
+    text-shadow:0 0 10px rgba(255,255,255,0.4);
 }
 
+/* BAR */
 .bar{
     width:100%;
     height:14px;
@@ -140,15 +158,18 @@ button:hover{
 .fill{
     width:0%;
     height:100%;
-    background:linear-gradient(90deg,#fff,#ffb6c1);
+    background:linear-gradient(90deg,#fff,#ffb6c1,#ff4d6d);
     transition:1.6s ease;
 }
 
+/* MESSAGE */
 .message{
     text-align:center;
     margin-top:10px;
+    font-size:14px;
 }
 
+/* ERROR */
 .error{
     min-height:20px;
     text-align:center;
@@ -163,8 +184,8 @@ button:hover{
     display:none;
     justify-content:center;
     align-items:center;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(18px);
+    background:rgba(0,0,0,0.35);
+    backdrop-filter:blur(12px);
     z-index:9999;
 }
 
@@ -176,6 +197,7 @@ button:hover{
     text-align:center;
 }
 
+/* SPINNER */
 .spinner{
     width:28px;
     height:28px;
@@ -206,7 +228,7 @@ button:hover{
     z-index:10;
 }
 
-/* FLOATING HEARTS FIX */
+/* FLOATING HEARTS */
 .particles{
     position:fixed;
     inset:0;
@@ -222,26 +244,39 @@ button:hover{
     animation:floatHeart linear infinite;
 }
 
-/* INTRO FIX */
+/* FIXED FLOATING HEART ANIMATION */
+@keyframes floatHeart{
+    0%{transform:translateY(0) rotate(0deg); opacity:0;}
+    10%{opacity:1;}
+    100%{transform:translateY(-120vh) rotate(360deg); opacity:0;}
+}
+
+/* INTRO (now more "sealed letter") */
 .introPopup{
     position:fixed;
     inset:0;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:rgba(0,0,0,.45);
-    backdrop-filter:blur(12px);
+    background:rgba(0,0,0,.5);
+    backdrop-filter:blur(14px);
     z-index:99999;
 }
 
 .letterBox{
     width:90%;
     max-width:430px;
-    background:white;
+    background:linear-gradient(135deg,#fff0f3,#ffffff);
     color:#222;
     border-radius:25px;
     overflow:hidden;
     box-shadow:0 20px 60px rgba(0,0,0,.35);
+    animation:pop 0.5s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.8); opacity:0;}
+    to{transform:scale(1); opacity:1;}
 }
 
 .letterText{
