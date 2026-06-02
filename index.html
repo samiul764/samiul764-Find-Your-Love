@@ -3,20 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Match Calculator ❤️</title>
+<title>Love Match Letter 💌</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- INTRO POPUP -->
+<!-- FLOATING HEARTS (FIXED CLASS MATCH) -->
+<div class="particles">
+    <span style="left:10%;font-size:18px;animation-duration:12s;">❤</span>
+    <span style="left:25%;font-size:22px;animation-duration:14s;">❤</span>
+    <span style="left:40%;font-size:16px;animation-duration:11s;">❤</span>
+    <span style="left:55%;font-size:24px;animation-duration:16s;">❤</span>
+    <span style="left:70%;font-size:20px;animation-duration:13s;">❤</span>
+    <span style="left:85%;font-size:26px;animation-duration:18s;">❤</span>
+</div>
+
+<!-- INTRO LOVE LETTER -->
 <div class="introPopup" id="introPopup">
     <div class="letterBox">
 
-        <div class="letterTop">💌 Love Match Letter</div>
+        <div class="letterTop">💌 A Letter Written For You</div>
 
         <div id="letterText" class="letterText"></div>
 
@@ -24,32 +33,18 @@
             Open Letter ❤️
         </button>
 
-        <button id="closeLetterBtn" class="closeBtn" onclick="closeLetter()">
-            Start Matching 💕
+        <button id="closeLetterBtn" onclick="closeLetter()" class="closeBtn">
+            Enter Love World 💕
         </button>
 
     </div>
 </div>
 
-<!-- FLOATING HEARTS -->
-<div class="particles">
-    <span style="left:5%;font-size:18px;animation-duration:12s;">❤</span>
-    <span style="left:15%;font-size:24px;animation-duration:16s;">❤</span>
-    <span style="left:25%;font-size:14px;animation-duration:11s;">❤</span>
-    <span style="left:35%;font-size:20px;animation-duration:15s;">❤</span>
-    <span style="left:45%;font-size:26px;animation-duration:13s;">❤</span>
-    <span style="left:55%;font-size:16px;animation-duration:17s;">❤</span>
-    <span style="left:65%;font-size:22px;animation-duration:12s;">❤</span>
-    <span style="left:75%;font-size:28px;animation-duration:18s;">❤</span>
-    <span style="left:85%;font-size:18px;animation-duration:14s;">❤</span>
-    <span style="left:95%;font-size:24px;animation-duration:16s;">❤</span>
-</div>
-
-<!-- MAIN CONTAINER -->
+<!-- MAIN CARD -->
 <div class="container">
 
-    <div class="heart">❤️</div>
-    <h1>Love Match AI</h1>
+    <div class="heart">💖</div>
+    <h1>Love Match Letter AI</h1>
 
     <input type="text" id="name1" placeholder="Your Name">
     <input type="text" id="name2" placeholder="Their Name">
@@ -57,7 +52,7 @@
 
     <div class="error" id="errorMsg"></div>
 
-    <button onclick="calculateLove()">Calculate ❤️</button>
+    <button onclick="calculateLove()">Seal Love Letter 💌</button>
 
     <div class="result" id="result">
         <div class="percent" id="percent">0%</div>
@@ -71,11 +66,11 @@
 
 </div>
 
-<!-- LOADING OVERLAY -->
+<!-- LOADING -->
 <div class="overlay" id="overlay">
     <div class="loaderCard">
         <div class="spinner"></div>
-        <p>Calculating compatibility...</p>
+        <p>Writing your love story...</p>
     </div>
 </div>
 
@@ -94,37 +89,37 @@ target="hidden_iframe">
 
 <!-- FOOTER -->
 <div class="footer">
-    <p>&lt;/&gt; developed by Prottoy • a class 10 vibe coder</p>
+    💌 made with love • Prottoy
 </div>
 
 <script>
+
 let i = 0;
 
 const letterMessage =
-`Welcome to our Love Match Calculator! ❤️
+`Before you begin...
 
-Before we begin...
+This is not just a calculator.
+This is a love letter hidden inside code 💌
 
-This is just for fun 💕
-No real science, just vibes 😄
+Every result is random,
+but feelings are real 💖
 
-Now let's see your love score... ✨`;
+Now open your destiny... ✨`;
 
 function startLetter(){
 
-    const btn = document.getElementById("openLetterBtn");
-    const closeBtn = document.getElementById("closeLetterBtn");
-    const target = document.getElementById("letterText");
+    document.getElementById("openLetterBtn").style.display = "none";
 
-    if(btn) btn.style.display = "none";
+    const target = document.getElementById("letterText");
 
     function typeWriter(){
         if(i < letterMessage.length){
-            target.innerHTML += letterMessage.charAt(i);
+            target.innerHTML += letterMessage[i];
             i++;
-            setTimeout(typeWriter, 25);
-        }else{
-            if(closeBtn) closeBtn.style.display = "block";
+            setTimeout(typeWriter, 28);
+        } else {
+            document.getElementById("closeLetterBtn").style.display = "block";
         }
     }
 
@@ -144,12 +139,11 @@ function calculateLove(){
     let error = document.getElementById("errorMsg");
 
     if(!n1 || !n2 || !love){
-        error.innerText = "❌ Please fill all fields!";
+        error.innerText = "❌ Fill all fields to open your love letter!";
         return;
     }
 
     error.innerText = "";
-
     document.getElementById("overlay").style.display = "flex";
 
     setTimeout(() => {
@@ -163,21 +157,21 @@ function calculateLove(){
         document.getElementById("fill").style.width = percent + "%";
 
         let msg = "";
-        if(percent > 85) msg = "💖 Perfect match!";
-        else if(percent > 70) msg = "💘 Strong connection!";
-        else msg = "💗 Good vibes!";
+        if(percent > 85) msg = "💖 Soulmate Energy!";
+        else if(percent > 70) msg = "💘 Strong Emotional Bond!";
+        else msg = "💗 Cute Connection!";
 
         document.getElementById("message").innerText = msg;
 
-        // SAVE TO GOOGLE FORM
         document.getElementById("g1").value = n1;
         document.getElementById("g2").value = n2;
         document.getElementById("g3").value = love;
 
         document.getElementById("googleForm").submit();
 
-    }, 1200);
+    }, 1300);
 }
+
 </script>
 
 </body>
