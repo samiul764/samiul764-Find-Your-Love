@@ -374,7 +374,12 @@ button:hover{
     margin:0 auto 18px;
     display:block;
 }
-
+background:
+linear-gradient(
+180deg,
+#fff,
+#fff5f7
+);
 .closeBtn{
     display:none;
 }
