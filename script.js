@@ -1,15 +1,14 @@
-\let canClick = true;
+let canClick = true;
 
 // 🧠 GOD MODE NAME VALIDATOR
 function getNameScore(name){
 
     name = name.trim().toLowerCase();
 
-    let score = 100;
-
     if(name.length < 3 || name.length > 30) return 0;
     if(!/^[a-z\s]+$/.test(name)) return 0;
 
+    let score = 100;
     let words = name.split(" ").filter(w => w.length > 0);
 
     for(let w of words){
@@ -32,34 +31,46 @@ function getNameScore(name){
     return Math.max(0, score);
 }
 
-// validation
-function isValidName(name){
-    return getNameScore(name) >= 75;
-}
-
-// smart error system
-function getErrorMessage(n1, n2){
+// 🧠 SMART ERROR ENGINE
+function getErrorMessage(n1, n2, love){
 
     let s1 = getNameScore(n1);
     let s2 = getNameScore(n2);
 
-    if(s1 >= 75 && s2 >= 75) return "";
+    if(!n1 && !n2 && !love)
+        return "❌ All fields are required!";
 
-    if(s1 < 30 && s2 < 30)
+    if(!n1)
+        return "❌ Your name is required!";
+
+    if(!n2)
+        return "❌ Their name is required!";
+
+    if(!love)
+        return "❌ Please tell what you love about them!";
+
+    if(s1 === 0 && s2 === 0)
         return "❌ Both names look fake 😭";
 
-    if(s1 < 75 && s2 < 75)
-        return "❌ Both names are invalid 😭";
-
-    if(s1 < 75)
+    if(s1 === 0)
         return "❌ Your name looks invalid 😭";
 
-    if(s2 < 75)
+    if(s2 === 0)
         return "❌ Their name looks invalid 😭";
 
-    return "❌ Invalid input";
+    if(s1 < 75 && s2 < 75)
+        return "❌ Both names are too weak 😭";
+
+    if(s1 < 75)
+        return "❌ Your name doesn't look valid enough 😭";
+
+    if(s2 < 75)
+        return "❌ Their name doesn't look valid enough 😭";
+
+    return "";
 }
 
+// 💖 MAIN FUNCTION
 function calculateLove(){
 
     if(!canClick) return;
@@ -71,19 +82,19 @@ function calculateLove(){
 
     let error = document.getElementById("errorMsg");
 
-    // reset
     error.innerText = "";
 
-    if(!n1 || !n2 || !love){
-        error.innerText = "❌ Please fill all fields!";
-        canClick = true;
-        return;
-    }
+    // reset UI every run
+    document.getElementById("result").style.display = "none";
+    document.getElementById("fill").style.width = "0%";
+    document.getElementById("percent").innerText = "0%";
+    document.getElementById("message").innerText = "";
 
-    // smart validation message
-    let customError = getErrorMessage(n1, n2);
-    if(customError){
-        error.innerText = customError;
+    // validation
+    let errorMsg = getErrorMessage(n1, n2, love);
+
+    if(errorMsg){
+        error.innerText = errorMsg;
         canClick = true;
         return;
     }
@@ -92,9 +103,9 @@ function calculateLove(){
 
     setTimeout(() => {
 
-        let percent = Math.floor(Math.random() * 41 + 60);
-
         document.getElementById("overlay").style.display = "none";
+
+        let percent = Math.floor(Math.random() * 41 + 60);
 
         document.getElementById("result").style.display = "block";
         document.getElementById("percent").innerText = percent + "%";
