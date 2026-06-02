@@ -5,77 +5,39 @@
     font-family:'Poppins',sans-serif;
 }
 
-html,body{
-    width:100%;
-    min-height:100%;
-    -webkit-text-size-adjust:100%;
-    touch-action:manipulation;
-}
-
 body{
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
-    padding:20px;
     position:relative;
     overflow:hidden;
 }
 
-/* BACKGROUND GLOW */
+/* ✨ LOVE PARTICLES (NEW ADDITION) */
 body::before{
-    content:"";
+    content:"💖 💕 ❤️ 💘 💗 💞 💓";
     position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle at 20% 20%,rgba(255,255,255,.08),transparent 30%),
-    radial-gradient(circle at 80% 30%,rgba(255,255,255,.08),transparent 30%),
-    radial-gradient(circle at 50% 80%,rgba(255,255,255,.08),transparent 30%);
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    font-size:26px;
+    opacity:0.08;
+    letter-spacing:40px;
+    animation:floatHearts 18s linear infinite;
     pointer-events:none;
-    z-index:0;
 }
 
-/* FLOATING PARTICLES */
-.particles{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:1;
-}
-
-.particles span{
-    position:absolute;
-    bottom:-60px;
-    color:rgba(255,255,255,0.45);
-    text-shadow:
-        0 0 6px rgba(255,255,255,0.6),
-        0 0 12px rgba(255,100,150,0.8),
-        0 0 20px rgba(255,0,100,0.5);
-
-    animation:floatWind 10s linear infinite;
-}
-
-/* FLOAT ANIMATION */
-@keyframes floatWind{
-    0%{
-        transform:translate(0,0) rotate(0deg) scale(1);
-        opacity:0;
-    }
-    10%{opacity:1;}
-    50%{
-        transform:translate(30px,-60vh) rotate(180deg) scale(1.2);
-    }
-    100%{
-        transform:translate(-30px,-120vh) rotate(360deg) scale(1);
-        opacity:0;
-    }
+@keyframes floatHearts{
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-100vh);}
 }
 
 /* MAIN CONTAINER */
 .container{
-    width:100%;
+    width:90%;
     max-width:420px;
     background:rgba(255,255,255,0.12);
     backdrop-filter:blur(25px);
@@ -114,13 +76,9 @@ input{
     transition:0.2s;
 }
 
-input::placeholder{
-    color:rgba(255,255,255,0.6);
-}
-
 input:focus{
     background:rgba(255,255,255,0.25);
-    box-shadow:0 0 10px rgba(255,0,60,0.3);
+    box-shadow:0 0 12px rgba(255,0,60,0.35);
 }
 
 /* BUTTON */
@@ -133,11 +91,11 @@ button{
     color:#ff003c;
     font-weight:700;
     cursor:pointer;
-    transition:0.2s;
+    transition:0.25s;
 }
 
 button:hover{
-    transform:scale(1.03);
+    transform:scale(1.04);
 }
 
 /* ERROR */
@@ -195,7 +153,7 @@ button:hover{
     display:none;
     justify-content:center;
     align-items:center;
-    background:rgba(255,255,255,0.05);
+    background:rgba(0,0,0,0.15);
     backdrop-filter:blur(18px);
     z-index:9999;
 }
