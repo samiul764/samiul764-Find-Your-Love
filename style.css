@@ -221,37 +221,6 @@ button:hover{
     100%{ transform:translateY(-120vh) rotate(360deg); opacity:0; }
 }
 
-/* INTRO POPUP */
-.introPopup{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.45);
-    backdrop-filter:blur(12px);
-    z-index:99999;
-}
-
-.letterBox{
-    width:90%;
-    max-width:430px;
-    background:white;
-    color:#222;
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
-}
-
-/* LETTER TEXT */
-.letterText{
-    padding:20px;
-    min-height:220px;
-    line-height:1.7;
-    font-size:14px;
-    white-space:pre-wrap;
-}
-
 /* MOBILE */
 @media (max-width: 480px){
     .container{
