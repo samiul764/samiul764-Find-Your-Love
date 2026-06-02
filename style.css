@@ -23,7 +23,23 @@ body{
     overflow:hidden;
 }
 
-/* BACKGROUND GLOW */
+/* 🌟 BREATHING BACKGROUND GLOW (NEW UPGRADE) */
+body::after{
+    content:"";
+    position:fixed;
+    inset:-50%;
+    background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 60%);
+    animation:breath 6s ease-in-out infinite;
+    pointer-events:none;
+    z-index:0;
+}
+
+@keyframes breath{
+    0%,100%{transform:scale(1); opacity:0.4;}
+    50%{transform:scale(1.2); opacity:0.7;}
+}
+
+/* BACKGROUND LAYERS */
 body::before{
     content:"";
     position:fixed;
@@ -36,7 +52,7 @@ body::before{
     z-index:0;
 }
 
-/* FLOATING PARTICLES */
+/* FLOATING PARTICLES (OPTIMIZED) */
 .particles{
     position:fixed;
     inset:0;
@@ -47,33 +63,30 @@ body::before{
 
 .particles span{
     position:absolute;
-    bottom:-60px;
-    color:rgba(255,255,255,0.45);
-    text-shadow:
-        0 0 6px rgba(255,255,255,0.6),
-        0 0 12px rgba(255,100,150,0.8),
-        0 0 20px rgba(255,0,100,0.5);
-
-    animation:floatWind 10s linear infinite;
+    bottom:-80px;
+    color:rgba(255,255,255,0.5);
+    text-shadow:0 0 10px rgba(255,255,255,0.4);
+    will-change:transform;
+    animation:floatWind 12s linear infinite;
 }
 
-/* FLOAT ANIMATION */
+/* FLOAT ANIMATION (SMOOTHER) */
 @keyframes floatWind{
     0%{
-        transform:translate(0,0) rotate(0deg) scale(1);
+        transform:translateY(0) translateX(0) rotate(0deg) scale(1);
         opacity:0;
     }
     10%{opacity:1;}
     50%{
-        transform:translate(30px,-60vh) rotate(180deg) scale(1.2);
+        transform:translateY(-60vh) translateX(25px) rotate(180deg) scale(1.15);
     }
     100%{
-        transform:translate(-30px,-120vh) rotate(360deg) scale(1);
+        transform:translateY(-120vh) translateX(-25px) rotate(360deg) scale(1);
         opacity:0;
     }
 }
 
-/* MAIN CONTAINER */
+/* MAIN CONTAINER (💖 GLOW UPGRADE) */
 .container{
     width:100%;
     max-width:420px;
@@ -82,9 +95,19 @@ body::before{
     border-radius:28px;
     padding:26px;
     color:white;
-    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.3),
+        0 0 25px rgba(255,0,60,0.15);
+
     position:relative;
     z-index:5;
+
+    animation:containerPulse 4s ease-in-out infinite;
+}
+
+@keyframes containerPulse{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-3px);}
 }
 
 /* HEART */
@@ -114,16 +137,12 @@ input{
     transition:0.2s;
 }
 
-input::placeholder{
-    color:rgba(255,255,255,0.6);
-}
-
 input:focus{
     background:rgba(255,255,255,0.25);
-    box-shadow:0 0 10px rgba(255,0,60,0.3);
+    box-shadow:0 0 12px rgba(255,0,60,0.3);
 }
 
-/* BUTTON */
+/* BUTTON (🔥 BETTER FEEL) */
 button{
     width:100%;
     padding:14px;
@@ -133,11 +152,12 @@ button{
     color:#ff003c;
     font-weight:700;
     cursor:pointer;
-    transition:0.2s;
+    transition:0.25s;
 }
 
 button:hover{
-    transform:scale(1.03);
+    transform:scale(1.05);
+    box-shadow:0 10px 25px rgba(255,0,60,0.25);
 }
 
 /* ERROR */
@@ -195,7 +215,7 @@ button:hover{
     display:none;
     justify-content:center;
     align-items:center;
-    background:rgba(255,255,255,0.05);
+    background:rgba(0,0,0,0.15);
     backdrop-filter:blur(18px);
     z-index:9999;
 }
@@ -208,6 +228,7 @@ button:hover{
     text-align:center;
 }
 
+/* SPINNER */
 .spinner{
     width:28px;
     height:28px;
