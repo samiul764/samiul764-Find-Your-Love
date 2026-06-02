@@ -84,13 +84,12 @@ function calculateLove(){
 
     error.innerText = "";
 
-    // reset UI every run
+    // reset UI every run (IMPORTANT FIX)
     document.getElementById("result").style.display = "none";
     document.getElementById("fill").style.width = "0%";
     document.getElementById("percent").innerText = "0%";
     document.getElementById("message").innerText = "";
 
-    // validation
     let errorMsg = getErrorMessage(n1, n2, love);
 
     if(errorMsg){
@@ -99,11 +98,15 @@ function calculateLove(){
         return;
     }
 
-    document.getElementById("overlay").style.display = "flex";
+    // show overlay (FIXED safe method)
+    const overlay = document.getElementById("overlay");
+    overlay.style.display = "flex";
+    overlay.style.opacity = "1";
+    overlay.style.visibility = "visible";
 
     setTimeout(() => {
 
-        document.getElementById("overlay").style.display = "none";
+        overlay.style.display = "none";
 
         let percent = Math.floor(Math.random() * 41 + 60);
 
