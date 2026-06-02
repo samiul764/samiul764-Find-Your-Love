@@ -98,7 +98,7 @@ function calculateLove(){
         return;
     }
 
-    // 🚀 AI LOADING START
+    // 🚀 START LOADING
     startAILoading(() => {
 
         let percent = Math.floor(Math.random() * 41 + 60);
@@ -117,7 +117,7 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
-        // 💾 Google Form
+        // 💾 Google Form FIX (INSIDE FUNCTION)
         document.getElementById("g1").value = n1;
         document.getElementById("g2").value = n2;
         document.getElementById("g3").value = love;
@@ -127,10 +127,12 @@ function calculateLove(){
         canClick = true;
     });
 }
+
+// 💖 AI LOADING SYSTEM (FIXED)
 function startAILoading(callback){
 
     const overlay = document.getElementById("overlay");
-    const text = document.getElementById("loadingText");
+    const text = document.getElementById("loaderText"); // FIXED ID
 
     overlay.style.display = "flex";
 
@@ -142,9 +144,8 @@ function startAILoading(callback){
         "Processing emotional resonance...",
         "Running neural love prediction model...",
         "Comparing soulmate probability...",
-        "Calculating attraction frequency...",
         "Cross-checking emotional stability...",
-        "Finalizing compatibility result...",
+        "Finalizing result...",
         "Almost ready..."
     ];
 
@@ -155,10 +156,43 @@ function startAILoading(callback){
         i = (i + 1) % messages.length;
     }, 1800);
 
-    // 20 seconds loading
     setTimeout(() => {
         clearInterval(interval);
         overlay.style.display = "none";
         callback();
     }, 20000);
 }
+
+// =====================
+// 🖱️ CURSOR EFFECT
+// =====================
+const cursor = document.querySelector(".cursor");
+const ring = document.querySelector(".cursor-ring");
+
+document.addEventListener("mousemove", (e) => {
+    if(!cursor || !ring) return;
+
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+
+    ring.style.left = e.clientX + "px";
+    ring.style.top = e.clientY + "px";
+});
+
+// =====================
+// 📱 TOUCH EFFECT
+// =====================
+document.addEventListener("touchstart", (e) => {
+
+    const touch = e.touches[0];
+
+    const ripple = document.createElement("div");
+    ripple.className = "touch-ripple";
+
+    ripple.style.left = touch.clientX + "px";
+    ripple.style.top = touch.clientY + "px";
+
+    document.body.appendChild(ripple);
+
+    setTimeout(() => ripple.remove(), 600);
+});
