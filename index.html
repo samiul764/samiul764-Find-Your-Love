@@ -12,7 +12,7 @@
 
 <body>
 
-<!-- FLOATING HEARTS (from your first code - restored) -->
+<!-- FLOATING HEARTS -->
 <div class="particles">
     <span style="left:5%;font-size:18px;animation-duration:12s;">❤</span>
     <span style="left:15%;font-size:24px;animation-duration:16s;">❤</span>
@@ -32,9 +32,29 @@
     <div class="heart">❤️</div>
     <h1>Love Match AI</h1>
 
-    <input type="text" id="name1" placeholder="Your Name">
-    <input type="text" id="name2" placeholder="Their Name">
-    <input type="text" id="loveText" placeholder="What do you love about them?">
+    <input 
+        type="text" 
+        id="name1" 
+        placeholder="Your Name"
+        autocomplete="off"
+        aria-label="Your Name"
+    >
+
+    <input 
+        type="text" 
+        id="name2" 
+        placeholder="Their Name"
+        autocomplete="off"
+        aria-label="Their Name"
+    >
+
+    <input 
+        type="text" 
+        id="loveText" 
+        placeholder="What do you love about them?"
+        autocomplete="off"
+        aria-label="Love message"
+    >
 
     <div id="errorMsg" class="error"></div>
 
@@ -74,10 +94,16 @@ target="hidden_iframe">
 <!-- HIDDEN IFRAME -->
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
-<!-- FOOTER (clean fixed version) -->
+<!-- FOOTER -->
 <div class="footer">
     &lt;/&gt; developed by prottoy • class 10 vibe coder • built for fun ❤️
 </div>
+
+<noscript>
+    <div style="color:white;text-align:center;margin-top:10px;">
+        JavaScript is required for this app to work.
+    </div>
+</noscript>
 
 <script src="script.js" defer></script>
 
