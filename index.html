@@ -6,11 +6,14 @@
 <title>Love Match Calculator ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<div id="introPopup" class="introPopup">
+
+<!-- INTRO POPUP -->
+<div class="introPopup" id="introPopup">
     <div class="letterBox">
 
         <div class="letterTop">💌 Love Match Letter</div>
@@ -27,7 +30,9 @@
 
     </div>
 </div>
-    <div class="particles">
+
+<!-- FLOATING HEARTS -->
+<div class="particles">
     <span style="left:5%;font-size:18px;animation-duration:12s;">❤</span>
     <span style="left:15%;font-size:24px;animation-duration:16s;">❤</span>
     <span style="left:25%;font-size:14px;animation-duration:11s;">❤</span>
@@ -40,6 +45,7 @@
     <span style="left:95%;font-size:24px;animation-duration:16s;">❤</span>
 </div>
 
+<!-- MAIN CONTAINER -->
 <div class="container">
 
     <div class="heart">❤️</div>
@@ -65,7 +71,7 @@
 
 </div>
 
-<!-- overlay -->
+<!-- LOADING OVERLAY -->
 <div class="overlay" id="overlay">
     <div class="loaderCard">
         <div class="spinner"></div>
@@ -73,7 +79,7 @@
     </div>
 </div>
 
-<!-- Google Form (DATA SAVER) -->
+<!-- GOOGLE FORM -->
 <form id="googleForm"
 action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
 method="POST"
@@ -86,28 +92,47 @@ target="hidden_iframe">
 
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
-<!-- footer -->
+<!-- FOOTER -->
 <div class="footer">
     <p>&lt;/&gt; developed by Prottoy • a class 10 vibe coder</p>
 </div>
 
 <script>
-function isValidName(name){
+let i = 0;
 
-    name = name.trim();
+const letterMessage =
+`Welcome to our Love Match Calculator! ❤️
 
-    if(name.length < 3) return false;
-    if(/[0-9]/.test(name)) return false;
-    if(!/[aeiouAEIOU]/.test(name)) return false;
-    if(!/^[a-zA-Z\s]+$/.test(name)) return false;
+Before we begin...
 
-    let vowels = name.match(/[aeiouAEIOU]/g);
-    let consonants = name.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g);
+This is just for fun 💕
+No real science, just vibes 😄
 
-    if(!vowels || !consonants) return false;
-    if(consonants.length > vowels.length * 4) return false;
+Now let's see your love score... ✨`;
 
-    return true;
+function startLetter(){
+
+    const btn = document.getElementById("openLetterBtn");
+    const closeBtn = document.getElementById("closeLetterBtn");
+    const target = document.getElementById("letterText");
+
+    if(btn) btn.style.display = "none";
+
+    function typeWriter(){
+        if(i < letterMessage.length){
+            target.innerHTML += letterMessage.charAt(i);
+            i++;
+            setTimeout(typeWriter, 25);
+        }else{
+            if(closeBtn) closeBtn.style.display = "block";
+        }
+    }
+
+    typeWriter();
+}
+
+function closeLetter(){
+    document.getElementById("introPopup").style.display = "none";
 }
 
 function calculateLove(){
@@ -123,11 +148,6 @@ function calculateLove(){
         return;
     }
 
-    if(!isValidName(n1) || !isValidName(n2)){
-        error.innerText = "❌ Please enter real-looking names!";
-        return;
-    }
-
     error.innerText = "";
 
     document.getElementById("overlay").style.display = "flex";
@@ -137,80 +157,27 @@ function calculateLove(){
         let percent = Math.floor(Math.random() * 41 + 60);
 
         document.getElementById("overlay").style.display = "none";
-
         document.getElementById("result").style.display = "block";
+
         document.getElementById("percent").innerText = percent + "%";
         document.getElementById("fill").style.width = percent + "%";
 
         let msg = "";
-
         if(percent > 85) msg = "💖 Perfect match!";
         else if(percent > 70) msg = "💘 Strong connection!";
         else msg = "💗 Good vibes!";
 
         document.getElementById("message").innerText = msg;
 
-        // 💾 SAVE TO GOOGLE FORM
+        // SAVE TO GOOGLE FORM
         document.getElementById("g1").value = n1;
         document.getElementById("g2").value = n2;
         document.getElementById("g3").value = love;
 
         document.getElementById("googleForm").submit();
 
-    }, 1500);
+    }, 1200);
 }
-const letterMessage =
-`Welcome to our Love Match Calculator! ❤️
-
-Before we begin...
-
-Thank you for visiting this little project.
-
-We will try our best to guess the love percentage between you and your special person. 💕
-
-However, remember that this website is only made for fun and entertainment.
-
-No calculator can truly measure feelings, trust, loyalty, care, or the memories shared between two people.
-
-So enjoy the result, laugh with your friends, and don't take the percentage too seriously. 😄
-
-Created with ❤️ by Prottoy.
-
-Now let's see what destiny has to say... ✨`;
-
-let i = 0;
-
-function startLetter(){
-
-    document.getElementById("openLetterBtn").style.display = "none";
-
-    const target = document.getElementById("letterText");
-
-    function typeWriter(){
-
-        if(i < letterMessage.length){
-
-            target.innerHTML += letterMessage.charAt(i);
-
-            i++;
-
-            setTimeout(typeWriter, 28);
-
-        }else{
-
-            document.getElementById("closeLetterBtn").style.display = "block";
-
-        }
-    }
-
-    typeWriter();
-}
-
-function closeLetter(){
-
-    document.getElementById("introPopup").style.display = "none";
-}
-
 </script>
 
 </body>
