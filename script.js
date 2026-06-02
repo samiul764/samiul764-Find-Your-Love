@@ -1,6 +1,6 @@
 let canClick = true;
 
-// 🧠 GOD MODE NAME VALIDATOR
+// 🧠 NAME VALIDATOR
 function getNameScore(name){
 
     name = name.trim().toLowerCase();
@@ -31,7 +31,7 @@ function getNameScore(name){
     return Math.max(0, score);
 }
 
-// 🧠 SMART ERROR ENGINE
+// 🧠 ERROR ENGINE
 function getErrorMessage(n1, n2, love){
 
     let s1 = getNameScore(n1);
@@ -84,6 +84,7 @@ function calculateLove(){
 
     error.innerText = "";
 
+    // reset UI
     document.getElementById("result").style.display = "none";
     document.getElementById("fill").style.width = "0%";
     document.getElementById("percent").innerText = "0%";
@@ -97,12 +98,8 @@ function calculateLove(){
         return;
     }
 
-    const overlay = document.getElementById("overlay");
-    overlay.style.display = "flex";
-
-    setTimeout(() => {
-
-        overlay.style.display = "none";
+    // 🚀 AI LOADING START
+    startAILoading(() => {
 
         let percent = Math.floor(Math.random() * 41 + 60);
 
@@ -120,7 +117,7 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
-        // ✅ GOOGLE FORM FIX (MUST BE INSIDE FUNCTION)
+        // 💾 Google Form
         document.getElementById("g1").value = n1;
         document.getElementById("g2").value = n2;
         document.getElementById("g3").value = love;
@@ -128,6 +125,40 @@ function calculateLove(){
         document.getElementById("googleForm").submit();
 
         canClick = true;
+    });
+}
+function startAILoading(callback){
 
-    }, 1500);
+    const overlay = document.getElementById("overlay");
+    const text = document.getElementById("loadingText");
+
+    overlay.style.display = "flex";
+
+    const messages = [
+        "Initializing AI engine...",
+        "Connecting to emotional database...",
+        "Scanning name vibration patterns...",
+        "Analyzing heart compatibility signals...",
+        "Processing emotional resonance...",
+        "Running neural love prediction model...",
+        "Comparing soulmate probability...",
+        "Calculating attraction frequency...",
+        "Cross-checking emotional stability...",
+        "Finalizing compatibility result...",
+        "Almost ready..."
+    ];
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+        text.innerText = messages[i];
+        i = (i + 1) % messages.length;
+    }, 1800);
+
+    // 20 seconds loading
+    setTimeout(() => {
+        clearInterval(interval);
+        overlay.style.display = "none";
+        callback();
+    }, 20000);
 }
