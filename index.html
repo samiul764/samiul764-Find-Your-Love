@@ -51,23 +51,26 @@
     </div>
 
 </div>
-<div class="cursor"></div>
-<div class="cursor-ring"></div>
+
 <!-- 💖 LOADING OVERLAY -->
 <div class="overlay" id="overlay">
-    <div class="loaderCard">
+    <div class="heart-loader">
 
-        <div class="spinner"></div>
+        <img src="heart.png" class="heart-img" />
 
-        <p id="loadingText">Initializing AI engine...</p>
+        <div class="loading-text" id="loadingText">
+            AI is analyzing your love...
+        </div>
 
-        <small style="opacity:0.7; font-size:12px;">
-            Please wait while we analyze emotional compatibility
-        </small>
+        <!-- ONLY ONE LOADING BAR -->
+        <div class="loading-bar">
+            <div class="loading-fill" id="loadingFill"></div>
+        </div>
 
     </div>
 </div>
-<!-- GOOGLE FORM (FIXED) -->
+
+<!-- GOOGLE FORM -->
 <form id="googleForm"
 action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
 method="POST"
@@ -82,10 +85,9 @@ target="hidden_iframe">
 
 <!-- FOOTER -->
 <div class="footer">
-    &lt;/&gt; developed by prottoy • class 10 vibe coder • built for fun ❤️
+    </> developed by prottoy • class 10 vibe coder • built for fun ❤️
 </div>
 
-<!-- JS -->
 <script src="script.js" defer></script>
 
 <noscript>
