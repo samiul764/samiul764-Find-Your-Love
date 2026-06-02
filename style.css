@@ -22,7 +22,7 @@ body{
     position:relative;
 }
 
-/* FIXED background glow */
+/* BACKGROUND GLOW */
 body::before{
     content:"";
     position:fixed;
@@ -45,6 +45,8 @@ body::before{
     padding:26px;
     color:white;
     box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    position:relative;
+    z-index:2;
 }
 
 /* HEART */
@@ -198,13 +200,13 @@ button:hover{
     z-index:10;
 }
 
-/* FLOATING HEARTS */
+/* 💖 FLOATING HEARTS (FIXED - NOW VISIBLE) */
 .particles{
     position:fixed;
     inset:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:-1;
+    z-index:1; /* FIX: was -1, now visible */
 }
 
 .particles span{
@@ -216,9 +218,17 @@ button:hover{
 
 /* FLOAT ANIMATION */
 @keyframes floatHeart{
-    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
-    10%{ opacity:1; }
-    100%{ transform:translateY(-120vh) rotate(360deg); opacity:0; }
+    0%{
+        transform:translateY(0) rotate(0deg);
+        opacity:0;
+    }
+    10%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-120vh) rotate(360deg);
+        opacity:0;
+    }
 }
 
 /* MOBILE */
