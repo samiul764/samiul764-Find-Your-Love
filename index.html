@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Match Letter 💌</title>
+<title>Love Match Calculator ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -11,21 +11,10 @@
 
 <body>
 
-<!-- FLOATING HEARTS (FIXED CLASS MATCH) -->
-<div class="particles">
-    <span style="left:10%;font-size:18px;animation-duration:12s;">❤</span>
-    <span style="left:25%;font-size:22px;animation-duration:14s;">❤</span>
-    <span style="left:40%;font-size:16px;animation-duration:11s;">❤</span>
-    <span style="left:55%;font-size:24px;animation-duration:16s;">❤</span>
-    <span style="left:70%;font-size:20px;animation-duration:13s;">❤</span>
-    <span style="left:85%;font-size:26px;animation-duration:18s;">❤</span>
-</div>
-
-<!-- INTRO LOVE LETTER -->
-<div class="introPopup" id="introPopup">
+<div id="introPopup" class="introPopup">
     <div class="letterBox">
 
-        <div class="letterTop">💌 A Letter Written For You</div>
+        <div class="letterTop">💌 Love Match Letter</div>
 
         <div id="letterText" class="letterText"></div>
 
@@ -33,18 +22,32 @@
             Open Letter ❤️
         </button>
 
-        <button id="closeLetterBtn" onclick="closeLetter()" class="closeBtn">
-            Enter Love World 💕
+        <button id="closeLetterBtn" class="closeBtn" onclick="closeLetter()">
+            Start Matching 💕
         </button>
 
     </div>
 </div>
 
-<!-- MAIN CARD -->
+<!-- FLOATING HEARTS -->
+<div class="particles">
+    <span style="left:5%;font-size:18px;animation-duration:12s;">❤</span>
+    <span style="left:15%;font-size:24px;animation-duration:16s;">❤</span>
+    <span style="left:25%;font-size:14px;animation-duration:11s;">❤</span>
+    <span style="left:35%;font-size:20px;animation-duration:15s;">❤</span>
+    <span style="left:45%;font-size:26px;animation-duration:13s;">❤</span>
+    <span style="left:55%;font-size:16px;animation-duration:17s;">❤</span>
+    <span style="left:65%;font-size:22px;animation-duration:12s;">❤</span>
+    <span style="left:75%;font-size:28px;animation-duration:18s;">❤</span>
+    <span style="left:85%;font-size:18px;animation-duration:14s;">❤</span>
+    <span style="left:95%;font-size:24px;animation-duration:16s;">❤</span>
+</div>
+
+<!-- MAIN CONTAINER -->
 <div class="container">
 
-    <div class="heart">💖</div>
-    <h1>Love Match Letter AI</h1>
+    <div class="heart">❤️</div>
+    <h1>Love Match AI</h1>
 
     <input type="text" id="name1" placeholder="Your Name">
     <input type="text" id="name2" placeholder="Their Name">
@@ -52,7 +55,7 @@
 
     <div class="error" id="errorMsg"></div>
 
-    <button onclick="calculateLove()">Seal Love Letter 💌</button>
+    <button onclick="calculateLove()">Calculate ❤️</button>
 
     <div class="result" id="result">
         <div class="percent" id="percent">0%</div>
@@ -66,11 +69,11 @@
 
 </div>
 
-<!-- LOADING -->
+<!-- LOADING OVERLAY -->
 <div class="overlay" id="overlay">
     <div class="loaderCard">
         <div class="spinner"></div>
-        <p>Writing your love story...</p>
+        <p>Calculating compatibility...</p>
     </div>
 </div>
 
@@ -89,45 +92,26 @@ target="hidden_iframe">
 
 <!-- FOOTER -->
 <div class="footer">
-    💌 made with love • Prottoy
+    <p>&lt;/&gt; developed by Prottoy • a class 10 vibe coder</p>
 </div>
 
 <script>
+function isValidName(name){
 
-let i = 0;
+    name = name.trim();
 
-const letterMessage =
-`Before you begin...
+    if(name.length < 3) return false;
+    if(/[0-9]/.test(name)) return false;
+    if(!/[aeiouAEIOU]/.test(name)) return false;
+    if(!/^[a-zA-Z\s]+$/.test(name)) return false;
 
-This is not just a calculator.
-This is a love letter hidden inside code 💌
+    let vowels = name.match(/[aeiouAEIOU]/g);
+    let consonants = name.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g);
 
-Every result is random,
-but feelings are real 💖
+    if(!vowels || !consonants) return false;
+    if(consonants.length > vowels.length * 4) return false;
 
-Now open your destiny... ✨`;
-
-function startLetter(){
-
-    document.getElementById("openLetterBtn").style.display = "none";
-
-    const target = document.getElementById("letterText");
-
-    function typeWriter(){
-        if(i < letterMessage.length){
-            target.innerHTML += letterMessage[i];
-            i++;
-            setTimeout(typeWriter, 28);
-        } else {
-            document.getElementById("closeLetterBtn").style.display = "block";
-        }
-    }
-
-    typeWriter();
-}
-
-function closeLetter(){
-    document.getElementById("introPopup").style.display = "none";
+    return true;
 }
 
 function calculateLove(){
@@ -139,11 +123,17 @@ function calculateLove(){
     let error = document.getElementById("errorMsg");
 
     if(!n1 || !n2 || !love){
-        error.innerText = "❌ Fill all fields to open your love letter!";
+        error.innerText = "❌ Please fill all fields!";
+        return;
+    }
+
+    if(!isValidName(n1) || !isValidName(n2)){
+        error.innerText = "❌ Please enter real-looking names!";
         return;
     }
 
     error.innerText = "";
+
     document.getElementById("overlay").style.display = "flex";
 
     setTimeout(() => {
@@ -157,21 +147,74 @@ function calculateLove(){
         document.getElementById("fill").style.width = percent + "%";
 
         let msg = "";
-        if(percent > 85) msg = "💖 Soulmate Energy!";
-        else if(percent > 70) msg = "💘 Strong Emotional Bond!";
-        else msg = "💗 Cute Connection!";
+
+        if(percent > 85) msg = "💖 Perfect match!";
+        else if(percent > 70) msg = "💘 Strong connection!";
+        else msg = "💗 Good vibes!";
 
         document.getElementById("message").innerText = msg;
 
+        // 💾 SAVE TO GOOGLE FORM
         document.getElementById("g1").value = n1;
         document.getElementById("g2").value = n2;
         document.getElementById("g3").value = love;
 
         document.getElementById("googleForm").submit();
 
-    }, 1300);
+    }, 1500);
 }
 
+const letterMessage =
+`Welcome to our Love Match Calculator! ❤️
+
+Before we begin...
+
+Thank you for visiting this little project.
+
+We will try our best to guess the love percentage between you and your special person. 💕
+
+However, remember that this website is only made for fun and entertainment.
+
+No calculator can truly measure feelings, trust, loyalty, care, or the memories shared between two people.
+
+So enjoy the result, laugh with your friends, and don't take the percentage too seriously. 😄
+
+Created with ❤️ by Prottoy.
+
+Now let's see what destiny has to say... ✨`;
+
+let i = 0;
+
+function startLetter(){
+
+    document.getElementById("openLetterBtn").style.display = "none";
+
+    const target = document.getElementById("letterText");
+
+    function typeWriter(){
+
+        if(i < letterMessage.length){
+
+            target.innerHTML += letterMessage.charAt(i);
+
+            i++;
+
+            setTimeout(typeWriter, 28);
+
+        }else{
+
+            document.getElementById("closeLetterBtn").style.display = "block";
+
+        }
+    }
+
+    typeWriter();
+}
+
+function closeLetter(){
+
+    document.getElementById("introPopup").style.display = "none";
+}
 </script>
 
 </body>
