@@ -20,9 +20,10 @@ body{
     background: radial-gradient(circle at top,#ff4d6d,#ff003c,#1a0010);
     padding:20px;
     position:relative;
+    overflow-x:hidden;
 }
 
-/* FIXED body::before OUTSIDE body */
+/* background glow */
 body::before{
     content:"";
     position:fixed;
@@ -35,7 +36,7 @@ body::before{
     z-index:-2;
 }
 
-/* main card */
+/* MAIN CARD */
 .container{
     width:100%;
     max-width:420px;
@@ -45,6 +46,8 @@ body::before{
     padding:26px;
     color:white;
     box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    position:relative;
+    z-index:2;
 }
 
 /* heart */
@@ -60,7 +63,7 @@ h1{
     margin:10px 0 18px;
 }
 
-/* inputs */
+/* inputs (FIX iOS zoom) */
 input{
     width:100%;
     padding:14px;
@@ -70,7 +73,7 @@ input{
     border-radius:14px;
     background:rgba(255,255,255,0.15);
     color:white;
-    font-size:14px;
+    font-size:16px; /* IMPORTANT FIX */
     transition:0.2s;
 }
 
@@ -83,7 +86,7 @@ input:focus{
     box-shadow:0 0 10px rgba(255,0,60,0.3);
 }
 
-/* button */
+/* BUTTON (FIX MOBILE STUCK HOVER) */
 button{
     width:100%;
     padding:14px;
@@ -94,13 +97,21 @@ button{
     font-weight:700;
     cursor:pointer;
     transition:0.2s;
+    -webkit-tap-highlight-color:transparent;
 }
 
 button:hover{
     transform:scale(1.03);
 }
 
-/* result */
+/* disable hover effect on mobile */
+@media (hover:none){
+    button:hover{
+        transform:none;
+    }
+}
+
+/* RESULT */
 .result{
     display:none;
     margin-top:18px;
@@ -118,7 +129,6 @@ button:hover{
     font-weight:800;
 }
 
-/* bar */
 .bar{
     width:100%;
     height:14px;
@@ -134,13 +144,11 @@ button:hover{
     transition:1.6s ease;
 }
 
-/* message */
 .message{
     text-align:center;
     margin-top:10px;
 }
 
-/* error */
 .error{
     min-height:20px;
     text-align:center;
@@ -148,7 +156,7 @@ button:hover{
     font-size:13px;
 }
 
-/* overlay */
+/* LOADER */
 .overlay{
     position:fixed;
     inset:0;
@@ -182,87 +190,29 @@ button:hover{
     100%{transform:rotate(360deg);}
 }
 
-/* footer */
+/* FOOTER */
 .footer{
     position:fixed;
     bottom:14px;
     left:50%;
     transform:translateX(-50%);
-    overflow:hidden;
-
     padding:8px 18px;
     font-size:12px;
-    font-weight:500;
-
     color:#fff;
     background:rgba(255,255,255,0.12);
     border:1px solid rgba(255,255,255,0.25);
     border-radius:999px;
-
     backdrop-filter:blur(18px);
-    box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    z-index:10;
 }
 
-.footer::before{
-    content:"";
-    position:absolute;
-    top:-1px;
-    left:10%;
-    width:80%;
-    height:2px;
-    background:linear-gradient(90deg,transparent,#ff4d6d,transparent);
-    opacity:0.8;
-}
-
-/* mobile */
-@media (max-width: 768px){
-    .container{
-        max-width:380px;
-    }
-}
-
-@media (max-width: 480px){
-
-    body{
-        padding:14px;
-        align-items:center;
-    }
-
-    .container{
-        width:100%;
-        max-width:95%;
-        padding:20px;
-        border-radius:24px;
-    }
-
-    .heart{ font-size:44px; }
-    h1{ font-size:20px; margin:8px 0 14px; }
-
-    input{ padding:12px; font-size:13px; border-radius:12px; }
-    button{ padding:12px; font-size:14px; border-radius:12px; }
-
-    .percent{ font-size:30px; }
-    .bar{ height:12px; }
-
-    .message{ font-size:13px; }
-    .error{ font-size:12px; }
-
-    .loaderCard{ width:85%; padding:18px; }
-
-    .footer{
-        font-size:11px;
-        padding:7px 12px;
-        bottom:10px;
-    }
-}
-
-/* floating hearts */
+/* FLOATING HEARTS FIX */
 .particles{
     position:fixed;
     inset:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:-1;
+    z-index:0;
 }
 
 .particles span{
@@ -270,16 +220,9 @@ button:hover{
     bottom:-50px;
     color:rgba(255,255,255,0.35);
     animation:floatHeart linear infinite;
-    user-select:none;
 }
 
-@keyframes floatHeart{
-    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
-    10%{ opacity:1; }
-    100%{ transform:translateY(-120vh) rotate(360deg); opacity:0; }
-}
-
-/* intro popup */
+/* INTRO FIX */
 .introPopup{
     position:fixed;
     inset:0;
@@ -299,22 +242,6 @@ button:hover{
     border-radius:25px;
     overflow:hidden;
     box-shadow:0 20px 60px rgba(0,0,0,.35);
-    animation:popupScale .5s ease;
-    font-family:'Georgia',serif;
-}
-
-@keyframes popupScale{
-    from{ opacity:0; transform:scale(.8); }
-    to{ opacity:1; transform:scale(1); }
-}
-
-.letterTop{
-    padding:16px;
-    text-align:center;
-    font-weight:700;
-    font-size:20px;
-    color:white;
-    background:linear-gradient(135deg,#ff4d6d,#ff003c);
 }
 
 .letterText{
@@ -325,14 +252,13 @@ button:hover{
     white-space:pre-wrap;
 }
 
-#openLetterBtn,
-.closeBtn{
-    width:90%;
-    margin:0 auto 18px;
-    display:block;
-}
+/* MOBILE */
+@media (max-width: 480px){
+    .container{
+        width:95%;
+        padding:20px;
+    }
 
-.closeBtn{
-    display:none;
-    background:linear-gradient(180deg,#fff,#fff5f7);
+    .heart{font-size:44px;}
+    h1{font-size:20px;}
 }
