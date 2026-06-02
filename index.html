@@ -11,24 +11,6 @@
 
 <body>
 
-<div id="introPopup" class="introPopup">
-    <div class="letterBox">
-
-        <div class="letterTop">💌 Love Match Letter</div>
-
-        <div id="letterText" class="letterText"></div>
-
-        <button id="openLetterBtn" onclick="startLetter()">
-            Open Letter ❤️
-        </button>
-
-        <button id="closeLetterBtn" class="closeBtn" onclick="closeLetter()">
-            Start Matching 💕
-        </button>
-
-    </div>
-</div>
-
 <!-- FLOATING HEARTS -->
 <div class="particles">
     <span style="left:5%;font-size:18px;animation-duration:12s;">❤</span>
@@ -96,23 +78,6 @@ target="hidden_iframe">
 </div>
 
 <script>
-function isValidName(name){
-
-    name = name.trim();
-
-    if(name.length < 3) return false;
-    if(/[0-9]/.test(name)) return false;
-    if(!/[aeiouAEIOU]/.test(name)) return false;
-    if(!/^[a-zA-Z\s]+$/.test(name)) return false;
-
-    let vowels = name.match(/[aeiouAEIOU]/g);
-    let consonants = name.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g);
-
-    if(!vowels || !consonants) return false;
-    if(consonants.length > vowels.length * 4) return false;
-
-    return true;
-}
 
 function calculateLove(){
 
@@ -124,11 +89,6 @@ function calculateLove(){
 
     if(!n1 || !n2 || !love){
         error.innerText = "❌ Please fill all fields!";
-        return;
-    }
-
-    if(!isValidName(n1) || !isValidName(n2)){
-        error.innerText = "❌ Please enter real-looking names!";
         return;
     }
 
@@ -154,67 +114,15 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
-        // 💾 SAVE TO GOOGLE FORM
         document.getElementById("g1").value = n1;
         document.getElementById("g2").value = n2;
         document.getElementById("g3").value = love;
 
         document.getElementById("googleForm").submit();
 
-    }, 1500);
+    }, 1200);
 }
 
-const letterMessage =
-`Welcome to our Love Match Calculator! ❤️
-
-Before we begin...
-
-Thank you for visiting this little project.
-
-We will try our best to guess the love percentage between you and your special person. 💕
-
-However, remember that this website is only made for fun and entertainment.
-
-No calculator can truly measure feelings, trust, loyalty, care, or the memories shared between two people.
-
-So enjoy the result, laugh with your friends, and don't take the percentage too seriously. 😄
-
-Created with ❤️ by Prottoy.
-
-Now let's see what destiny has to say... ✨`;
-
-let i = 0;
-
-function startLetter(){
-
-    document.getElementById("openLetterBtn").style.display = "none";
-
-    const target = document.getElementById("letterText");
-
-    function typeWriter(){
-
-        if(i < letterMessage.length){
-
-            target.innerHTML += letterMessage.charAt(i);
-
-            i++;
-
-            setTimeout(typeWriter, 28);
-
-        }else{
-
-            document.getElementById("closeLetterBtn").style.display = "block";
-
-        }
-    }
-
-    typeWriter();
-}
-
-function closeLetter(){
-
-    document.getElementById("introPopup").style.display = "none";
-}
 </script>
 
 </body>
