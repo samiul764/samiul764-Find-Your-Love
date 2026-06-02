@@ -159,6 +159,58 @@ function calculateLove(){
 
     }, 1500);
 }
+const letterMessage =
+`Welcome to our Love Match Calculator! ❤️
+
+Before we begin...
+
+Thank you for visiting this little project.
+
+We will try our best to guess the love percentage between you and your special person. 💕
+
+However, remember that this website is only made for fun and entertainment.
+
+No calculator can truly measure feelings, trust, loyalty, care, or the memories shared between two people.
+
+So enjoy the result, laugh with your friends, and don't take the percentage too seriously. 😄
+
+Created with ❤️ by Prottoy.
+
+Now let's see what destiny has to say... ✨`;
+
+let i = 0;
+
+function startLetter(){
+
+    document.getElementById("openLetterBtn").style.display = "none";
+
+    const target = document.getElementById("letterText");
+
+    function typeWriter(){
+
+        if(i < letterMessage.length){
+
+            target.innerHTML += letterMessage.charAt(i);
+
+            i++;
+
+            setTimeout(typeWriter, 28);
+
+        }else{
+
+            document.getElementById("closeLetterBtn").style.display = "block";
+
+        }
+    }
+
+    typeWriter();
+}
+
+function closeLetter(){
+
+    document.getElementById("introPopup").style.display = "none";
+}
+
 </script>
 
 </body>
