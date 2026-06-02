@@ -12,7 +12,7 @@
 
 <body>
 
-<!-- FLOATING HEARTS -->
+<!-- 💖 FLOATING HEARTS -->
 <div class="particles">
     <span style="left:5%;font-size:18px;animation-duration:12s;">❤</span>
     <span style="left:15%;font-size:24px;animation-duration:16s;">❤</span>
@@ -26,35 +26,15 @@
     <span style="left:95%;font-size:24px;animation-duration:16s;">❤</span>
 </div>
 
-<!-- MAIN CONTAINER -->
+<!-- 💖 MAIN CONTAINER -->
 <div class="container">
 
     <div class="heart">❤️</div>
     <h1>Love Match AI</h1>
 
-    <input 
-        type="text" 
-        id="name1" 
-        placeholder="Your Name"
-        autocomplete="off"
-        aria-label="Your Name"
-    >
-
-    <input 
-        type="text" 
-        id="name2" 
-        placeholder="Their Name"
-        autocomplete="off"
-        aria-label="Their Name"
-    >
-
-    <input 
-        type="text" 
-        id="loveText" 
-        placeholder="What do you love about them?"
-        autocomplete="off"
-        aria-label="Love message"
-    >
+    <input type="text" id="name1" placeholder="Your Name" autocomplete="off">
+    <input type="text" id="name2" placeholder="Their Name" autocomplete="off">
+    <input type="text" id="loveText" placeholder="What do you love about them?" autocomplete="off">
 
     <div id="errorMsg" class="error"></div>
 
@@ -72,7 +52,7 @@
 
 </div>
 
-<!-- LOADING OVERLAY -->
+<!-- 💖 LOADING OVERLAY -->
 <div class="overlay" id="overlay">
     <div class="loaderCard">
         <div class="spinner"></div>
@@ -80,32 +60,19 @@
     </div>
 </div>
 
-<!-- GOOGLE FORM -->
-<form id="googleForm"
-action="https://docs.google.com/forms/d/e/1FAIpQLSdpvaxjPEfTz-nKFGHoc8J3UhV2hWlXS1cQSAR_NH1e9TSzgg/formResponse"
-method="POST"
-target="hidden_iframe">
-
-<input type="hidden" name="entry.1203440948" id="g1">
-<input type="hidden" name="entry.632297335" id="g2">
-<input type="hidden" name="entry.2029294024" id="g3">
-</form>
-
-<!-- HIDDEN IFRAME -->
-<iframe name="hidden_iframe" style="display:none;"></iframe>
-
 <!-- FOOTER -->
 <div class="footer">
     &lt;/&gt; developed by prottoy • class 10 vibe coder • built for fun ❤️
 </div>
+
+<!-- JS -->
+<script src="script.js" defer></script>
 
 <noscript>
     <div style="color:white;text-align:center;margin-top:10px;">
         JavaScript is required for this app to work.
     </div>
 </noscript>
-
-<script src="script.js" defer></script>
 
 </body>
 </html>
