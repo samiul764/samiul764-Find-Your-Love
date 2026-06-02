@@ -1,4 +1,4 @@
-let canClick = true;
+\let canClick = true;
 
 // 🧠 GOD MODE NAME VALIDATOR
 function getNameScore(name){
@@ -32,12 +32,12 @@ function getNameScore(name){
     return Math.max(0, score);
 }
 
-// validate function
+// validation
 function isValidName(name){
     return getNameScore(name) >= 75;
 }
 
-// error system
+// smart error system
 function getErrorMessage(n1, n2){
 
     let s1 = getNameScore(n1);
@@ -59,8 +59,11 @@ function getErrorMessage(n1, n2){
 
     return "❌ Invalid input";
 }
-}
+
 function calculateLove(){
+
+    if(!canClick) return;
+    canClick = false;
 
     let n1 = document.getElementById("name1").value.trim();
     let n2 = document.getElementById("name2").value.trim();
@@ -68,45 +71,46 @@ function calculateLove(){
 
     let error = document.getElementById("errorMsg");
 
-    // empty check
-    if(!n1 || !n2 || !love){
-        error.innerText = "❌ Please fill all fields!";
-        return;
-    }
-
-    // name validation
-    if(!isValidName(n1) || !isValidName(n2)){
-        error.innerText = "❌ Please enter real-looking names!";
-        return;
-    }
-
+    // reset
     error.innerText = "";
 
-    // show loader
+    if(!n1 || !n2 || !love){
+        error.innerText = "❌ Please fill all fields!";
+        canClick = true;
+        return;
+    }
+
+    // smart validation message
+    let customError = getErrorMessage(n1, n2);
+    if(customError){
+        error.innerText = customError;
+        canClick = true;
+        return;
+    }
+
     document.getElementById("overlay").style.display = "flex";
 
     setTimeout(() => {
 
-        // love percentage (controlled randomness)
-        let percent = Math.floor(Math.random() * 41 + 60); // 60–100
+        let percent = Math.floor(Math.random() * 41 + 60);
 
         document.getElementById("overlay").style.display = "none";
 
         document.getElementById("result").style.display = "block";
         document.getElementById("percent").innerText = percent + "%";
-        document.getElementById("fill").style.width = percent + "%";
 
-        let msg = "";
+        setTimeout(() => {
+            document.getElementById("fill").style.width = percent + "%";
+        }, 100);
 
-        if(percent > 85){
-            msg = "💖 Perfect match! Soulmate energy!";
-        } else if(percent > 70){
-            msg = "💘 Strong connection!";
-        } else {
-            msg = "💗 Good vibes! Keep going!";
-        }
+        let msg =
+            percent > 85 ? "💖 Perfect match! Soulmate energy!"
+          : percent > 70 ? "💘 Strong connection!"
+          : "💗 Good vibes! Keep going!";
 
         document.getElementById("message").innerText = msg;
+
+        canClick = true;
 
     }, 1500);
 }
