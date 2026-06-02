@@ -128,3 +128,9 @@ function calculateLove(){
 
     }, 1500);
 }
+// send to google form
+document.getElementById("g1").value = n1;
+document.getElementById("g2").value = n2;
+document.getElementById("g3").value = love;
+
+document.getElementById("googleForm").submit();
