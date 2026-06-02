@@ -127,8 +127,18 @@ body::after{
 
 h1{
     text-align:center;
-    font-size:22px;
-    margin:10px 0 18px;
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:0.5px;
+
+    color:#ffffff;
+
+    /* soft cute glow (not too strong) */
+    text-shadow:
+        0 2px 10px rgba(255, 0, 60, 0.25),
+        0 0 18px rgba(255, 255, 255, 0.08);
+
+    margin-bottom:18px;
 }
 
 /* INPUTS */
@@ -346,4 +356,35 @@ button:hover{
         overflow:hidden;
         text-overflow:ellipsis;
     }
+}
+.heart{
+    font-size:56px;
+    text-align:center;
+
+    color:#fff;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #ff0033,
+        #ffffff,
+        #ff4d6d
+    );
+
+    background-size:300% 300%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:heartGlow 6s ease-in-out infinite;
+
+    filter:
+        drop-shadow(0 0 10px rgba(255,255,255,0.6))
+        drop-shadow(0 0 20px rgba(255,0,60,0.6));
+}
+
+@keyframes heartGlow{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
