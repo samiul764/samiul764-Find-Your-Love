@@ -186,14 +186,14 @@ function calculateLove(){
         document.getElementById("message").innerText = msg;
 
         // =====================
-        // 💾 GOOGLE FORM SUBMIT
+        // 💾 GOOGLE FORM SUBMIT (FIXED)
         // =====================
         const form = document.getElementById("googleForm");
 
         if(form){
             document.getElementById("g1").value = name1;
             document.getElementById("g2").value = name2;
-            document.getElementById("g3").value = loveText;
+            document.getElementById("g3").value = percent + "%"; // ✅ FIX HERE
 
             form.submit();
         }
