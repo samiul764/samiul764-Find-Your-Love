@@ -66,6 +66,79 @@ function getErrorMessage(n1, n2, love){
 }
 
 // =====================
+// 🚀 LOADING SYSTEM
+// =====================
+function startAILoading(callback){
+
+    const overlay = document.getElementById("overlay");
+    const text = document.getElementById("loadingText");
+    const bar = document.getElementById("loadingFill");
+
+    overlay.style.display = "flex";
+
+    const messages = [
+        "Booting AI emotional engine...",
+        "Loading compatibility database...",
+        "Reading name patterns...",
+        "Analyzing emotional signals...",
+        "Checking heart frequency alignment...",
+        "Processing relationship variables...",
+        "Scanning love probability matrix...",
+        "Running deep neural simulation...",
+        "Almost calculating final result..."
+    ];
+
+    const calmMessages = [
+        "Stay calm... take a deep breath...",
+        "💓 Close your eyes... feel your heartbeat..."
+    ];
+
+    let i = 0;
+    const duration = 20000;
+    const calmStart = 15000;
+    let startTime = Date.now();
+
+    const interval = setInterval(() => {
+
+        let elapsed = Date.now() - startTime;
+
+        if(elapsed < calmStart){
+
+            if(text){
+                text.innerText = messages[Math.min(i, messages.length - 1)];
+            }
+            i++;
+        }
+        else {
+
+            let calmIndex = Math.floor((elapsed - calmStart) / 2500);
+
+            if(text){
+                text.innerText = calmMessages[Math.min(calmIndex, calmMessages.length - 1)];
+            }
+        }
+
+        let progress = Math.min((elapsed / duration) * 100, 100);
+        if(bar) bar.style.width = progress + "%";
+
+    }, 1000);
+
+    setTimeout(() => {
+
+        clearInterval(interval);
+
+        if(bar) bar.style.width = "100%";
+        if(text) text.innerText = "💖 Heart analysis complete...";
+
+        setTimeout(() => {
+            overlay.style.display = "none";
+            callback();
+        }, 700);
+
+    }, duration);
+}
+
+// =====================
 // 💖 MAIN FUNCTION
 // =====================
 function calculateLove(){
@@ -73,9 +146,9 @@ function calculateLove(){
     if(!canClick) return;
     canClick = false;
 
-    let n1 = document.getElementById("name1").value.trim();
-    let n2 = document.getElementById("name2").value.trim();
-    let love = document.getElementById("loveText").value.trim();
+    let name1 = document.getElementById("name1").value.trim();
+    let name2 = document.getElementById("name2").value.trim();
+    let loveText = document.getElementById("loveText").value.trim();
 
     let error = document.getElementById("errorMsg");
 
@@ -86,7 +159,7 @@ function calculateLove(){
     document.getElementById("percent").innerText = "0%";
     document.getElementById("message").innerText = "";
 
-    let errorMsg = getErrorMessage(n1, n2, love);
+    let errorMsg = getErrorMessage(name1, name2, loveText);
 
     if(errorMsg){
         error.innerText = errorMsg;
@@ -112,196 +185,19 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
-        // GOOGLE FORM
+        // =====================
+        // 💾 GOOGLE FORM SUBMIT
+        // =====================
         const form = document.getElementById("googleForm");
 
         if(form){
-            document.getElementById("g1").value = n1;
-            document.getElementById("g2").value = n2;
-            document.getElementById("g3").value = love;
+            document.getElementById("g1").value = name1;
+            document.getElementById("g2").value = name2;
+            document.getElementById("g3").value = loveText;
 
             form.submit();
         }
 
         canClick = true;
     });
-}
-
-// =====================
-// 🚀 LOADING SYSTEM
-// =====================
-function startAILoading(callback){
-
-    const overlay = document.getElementById("overlay");
-    const text = document.getElementById("loadingText");
-    const bar = document.getElementById("loadingFill");
-
-    overlay.style.display = "flex";
-
-    // 🧠 AI PROCESS PHASE (first part)
-    const messages = [
-        "Booting AI emotional engine...",
-        "Loading compatibility database...",
-        "Reading name patterns...",
-        "Analyzing emotional signals...",
-        "Checking heart frequency alignment...",
-        "Processing relationship variables...",
-        "Scanning love probability matrix...",
-        "Running deep neural simulation...",
-        "Almost calculating final result..."
-    ];
-
-    // 💖 FINAL CALM PHASE (ONLY 2 MESSAGES)
-    const calmMessages = [
-        "Stay calm... take a deep breath...",
-        "💓 Close your eyes... feel your heartbeat..."
-    ];
-
-    let i = 0;
-
-    const duration = 20000; // 20s total
-    const calmStart = 15000; // last 5 seconds = calm phase
-
-    let startTime = Date.now();
-
-    const interval = setInterval(() => {
-
-        let elapsed = Date.now() - startTime;
-
-        // -------------------------
-        // NORMAL AI PHASE
-        // -------------------------
-        if(elapsed < calmStart){
-
-            if(text){
-                text.innerText = messages[i];
-            }
-
-            i++;
-
-            if(i >= messages.length){
-                i = messages.length - 1;
-            }
-        }
-
-        // -------------------------
-        // CALM PHASE (LAST 5s)
-        // -------------------------
-        else {
-
-            let calmIndex = Math.floor((elapsed - calmStart) / 2500);
-
-            if(calmIndex >= calmMessages.length){
-                calmIndex = calmMessages.length - 1;
-            }
-
-            if(text){
-                text.innerText = calmMessages[calmIndex];
-            }
-        }
-
-        // progress bar sync
-        let progress = Math.min((elapsed / duration) * 100, 100);
-
-        if(bar){
-            bar.style.width = progress + "%";
-        }
-
-    }, 1000);
-
-    setTimeout(() => {
-
-        clearInterval(interval);
-
-        if(bar) bar.style.width = "100%";
-
-        if(text){
-            text.innerText = "💖 Heart analysis complete...";
-        }
-
-        setTimeout(() => {
-            overlay.style.display = "none";
-            callback();
-        }, 700);
-let canClick = true;
-
-function calculateLove(){
-
-    if(!canClick) return;
-    canClick = false;
-
-    let name1 = document.getElementById("name1").value.trim();
-    let name2 = document.getElementById("name2").value.trim();
-    let loveText = document.getElementById("loveText").value.trim();
-
-    let error = document.getElementById("errorMsg");
-
-    if(name1 === "" || name2 === "" || loveText === ""){
-        error.innerText = "Please fill all fields ❤️";
-        canClick = true;
-        return;
-    }
-
-    error.innerText = "";
-
-    // show loading
-    let overlay = document.getElementById("overlay");
-    let loadingFill = document.getElementById("loadingFill");
-    let loadingText = document.getElementById("loadingText");
-
-    overlay.style.display = "flex";
-
-    let progress = 0;
-
-    let loader = setInterval(() => {
-
-        progress += 1;
-        loadingFill.style.width = progress + "%";
-
-        if(progress === 30){
-            loadingText.innerText = "Checking compatibility...";
-        }
-        if(progress === 60){
-            loadingText.innerText = "Analyzing emotions...";
-        }
-        if(progress === 85){
-            loadingText.innerText = "Almost done...";
-        }
-
-        if(progress >= 100){
-            clearInterval(loader);
-
-            overlay.style.display = "none";
-
-            // 💖 LOVE RESULT
-            let percent = Math.floor(Math.random() * 101);
-
-            document.getElementById("percent").innerText = percent + "%";
-            document.getElementById("fill").style.width = percent + "%";
-
-            let msg = document.getElementById("message");
-
-            if(percent > 80){
-                msg.innerText = "💖 Perfect match!";
-            } else if(percent > 50){
-                msg.innerText = "😊 Good connection!";
-            } else {
-                msg.innerText = "💔 Just friends vibes!";
-            }
-
-            document.getElementById("result").style.display = "block";
-
-            // 💾 GOOGLE FORM AUTO SUBMIT (YOUR ADDITION)
-            document.getElementById("g1").value = name1;
-            document.getElementById("g2").value = name2;
-            document.getElementById("g3").value = percent + "%";
-
-            document.getElementById("googleForm").submit();
-
-            canClick = true;
-        }
-
-    }, 50);
-}
-    }, duration);
 }
