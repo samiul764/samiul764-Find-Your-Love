@@ -170,19 +170,22 @@ function calculateLove(){
     startAILoading(() => {
 
         // =====================
-        // 🔥 PROTTOY BOOST SYSTEM
+        // 🔥 PROTTOY BOOST (FIXED + BULLETPROOF)
         // =====================
-        let n1Lower = name1.toLowerCase();
-        let n2Lower = name2.toLowerCase();
 
-        let base = Math.floor(Math.random() * 41 + 60); // 60–100
+        let clean1 = name1.toLowerCase().replace(/[^a-z]/g, "");
+        let clean2 = name2.toLowerCase().replace(/[^a-z]/g, "");
+
+        let isProttoy =
+            clean1.includes("prottoy") ||
+            clean2.includes("prottoy");
 
         let percent;
 
-        if (n1Lower.includes("prottoy") || n2Lower.includes("prottoy")) {
-            percent = Math.floor(Math.random() * 11 + 90); // 90–100 boost
+        if (isProttoy) {
+            percent = 90 + Math.floor(Math.random() * 11); // 90–100
         } else {
-            percent = base;
+            percent = 60 + Math.floor(Math.random() * 41); // 60–100
         }
 
         // =====================
