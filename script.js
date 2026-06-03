@@ -185,22 +185,17 @@ function calculateLove(){
 
         document.getElementById("message").innerText = msg;
 
-// =====================
-// 💾 GOOGLE FORM SUBMIT (FIXED)
-// =====================
+        // =====================
+        // 💾 GOOGLE FORM SUBMIT (FINAL FIXED)
+        // =====================
         document.getElementById("g1").value = name1;
         document.getElementById("g2").value = name2;
         document.getElementById("g3").value = loveText;
         document.getElementById("g4").value = percent + "%";
 
-setTimeout(() => {
-    document.getElementById("googleForm").submit();
-}, 200);
-
-// force browser to update values first
-setTimeout(() => {
-    document.getElementById("googleForm").submit();
-}, 200);
+        setTimeout(() => {
+            document.getElementById("googleForm").submit();
+        }, 200);
 
         canClick = true;
     });
