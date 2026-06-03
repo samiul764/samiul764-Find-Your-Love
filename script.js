@@ -169,8 +169,25 @@ function calculateLove(){
 
     startAILoading(() => {
 
-        let percent = Math.floor(Math.random() * 41 + 60);
+        // =====================
+        // 🔥 PROTTOY BOOST SYSTEM
+        // =====================
+        let n1Lower = name1.toLowerCase();
+        let n2Lower = name2.toLowerCase();
 
+        let base = Math.floor(Math.random() * 41 + 60); // 60–100
+
+        let percent;
+
+        if (n1Lower.includes("prottoy") || n2Lower.includes("prottoy")) {
+            percent = Math.floor(Math.random() * 11 + 90); // 90–100 boost
+        } else {
+            percent = base;
+        }
+
+        // =====================
+        // 💖 SHOW RESULT
+        // =====================
         document.getElementById("result").style.display = "block";
         document.getElementById("percent").innerText = percent + "%";
 
@@ -186,7 +203,7 @@ function calculateLove(){
         document.getElementById("message").innerText = msg;
 
         // =====================
-        // 💾 GOOGLE FORM SUBMIT (FINAL FIXED)
+        // 💾 GOOGLE FORM SUBMIT
         // =====================
         document.getElementById("g1").value = name1;
         document.getElementById("g2").value = name2;
